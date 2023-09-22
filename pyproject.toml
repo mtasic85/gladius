@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "swordfish"
+version = "0.1.0"
+description = "Full-stack web apps in Python"
+homepage = "https://github.com/mtasic85/swordfish"
+repository = "https://github.com/mtasic85/swordfish"
+authors = ["Marko Tasic <mtasic85@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "swordfish"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiohttp = {extras = ["speedups"], version = "^3.8.5"}
+uvloop = "^0.17.0"
+gunicorn = "^21.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
