@@ -147,10 +147,10 @@ class Text(Component):
         return self.content
 
 class ComponentLibrary:
-    ctx: 'Swordfish'
+    ctx: 'Gladius'
     component_map: dict[str, type]
 
-    def __init__(self, ctx: 'Swordfish'):
+    def __init__(self, ctx: 'Gladius'):
         self.ctx = ctx
 
         component_map: dict[str, Component] = {

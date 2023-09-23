@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "swordfish"
+name = "gladius"
 version = "0.1.0"
 description = "Full-stack web apps in Python"
-homepage = "https://github.com/mtasic85/swordfish"
-repository = "https://github.com/mtasic85/swordfish"
+homepage = "https://github.com/mtasic85/gladius"
+repository = "https://github.com/mtasic85/gladius"
 authors = ["Marko Tasic <mtasic85@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "swordfish"}]
+packages = [{include = "gladius"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"

@@ -3,7 +3,7 @@ Full-stack web apps in Python
 
 ## Install
 ```bash
-pip install swordfish
+pip install gladius
 ```
 
 ## Run Examples

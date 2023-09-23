@@ -3,10 +3,10 @@ from random import randint
 
 from aiohttp import web
 
-from swordfish import Swordfish, Component, EventRequest
-from swordfish.daisyui import DaisyUI
+from gladius import Gladius, Component, EventRequest
+from gladius.daisyui import DaisyUI
 
-sf = Swordfish()
+sf = Gladius()
 ui = DaisyUI(sf)
 
 def MyNavbar() -> Component:

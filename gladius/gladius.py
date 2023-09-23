@@ -1,8 +1,9 @@
 __all__ = [
     'EventRequest',
-    'Swordfish',
+    'Gladius',
 ]
 
+import os
 import inspect
 from collections import defaultdict
 from typing import TypedDict, Callable
@@ -19,13 +20,13 @@ class EventRequest(TypedDict, total=False):
     type: str
     # ...
 
-class Swordfish:
+class Gladius:
     app: web.Application
     callbacks: dict[str, dict[str, tuple[Component, Callable]]] # {sf_id: {event_type: [component, func]}}
 
     def __init__(self):
         @middleware
-        async def swordfish_middleware(request: web.Request, handler: Callable) -> web.Response:
+        async def gladius_middleware(request: web.Request, handler: Callable) -> web.Response:
             # print(request, handler)
             req: dict
 
@@ -52,13 +53,18 @@ class Swordfish:
 
             return response
 
-        self.app = web.Application(middlewares=[swordfish_middleware])
+        self.app = web.Application(middlewares=[gladius_middleware])
         
         self.app.add_routes([
-            web.static('/static', 'static'),
+            web.static('/static/gladius', os.path.join(os.path.split(__loader__.path)[0], 'static')),
             web.get('/api/1.0/_event/{event_type}/{sf_id}', self.get_api_1_0__event),
             web.post('/api/1.0/_event/{event_type}/{sf_id}', self.post_api_1_0__event),
         ])
+
+        if os.path.exists('static'):
+            self.app.add_routes([
+                web.static('/static', 'static'),
+            ])
 
         self.callbacks = defaultdict(dict)
 

@@ -1,13 +1,13 @@
 __all__ = ['DaisyUI']
 
-from .swordfish import Swordfish, EventRequest
+from .gladius import Gladius, EventRequest
 from .component import Component, Div, ComponentLibrary
 
 class Page(Component):
     default_class: str = 'container mx-auto'
     title: str
 
-    def __init__(self, *args, title: str='Swordfish', **kwargs):
+    def __init__(self, *args, title: str='Gladius', **kwargs):
         super().__init__(*args, **kwargs)
         self.title = title
 
@@ -20,7 +20,7 @@ class Page(Component):
                 <head>
                     <meta charset="utf-8" />
                     <meta name="viewport" content="width=device-width" />
-                    <link rel="shortcut icon" type="image/png" href="/static/favicon.png" />
+                    <link rel="shortcut icon" type="image/png" href="/static/gladius/favicon.png" />
                     <title>{self.title}</title>
 
                     <!-- daisyui -->
@@ -39,7 +39,7 @@ class Page(Component):
                     <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
                     <script src="https://unpkg.com/htmx.org/dist/ext/event-header.js"></script>
                     <!-- <script src="https://unpkg.com/htmx.org/dist/ext/path-deps.js"></script> -->
-                    <script src="/static/multi-path-deps.js"></script>
+                    <script src="/static/gladius/multi-path-deps.js"></script>
                 </head>
                 <body hx-ext='multi-path-deps'>
                     <div {self.render_props()}>
@@ -144,7 +144,7 @@ class Table(Component):
         '''
 
 class DaisyUI(ComponentLibrary):
-    def __init__(self, ctx: Swordfish):
+    def __init__(self, ctx: Gladius):
         super().__init__(ctx)
 
         component_map: dict[str, Component] = {
