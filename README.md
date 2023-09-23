@@ -12,7 +12,7 @@
 [![Supported Versions](https://img.shields.io/pypi/pyversions/gladius)](https://pypi.org/project/gladius)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-<img src="misc/logo-1.png" style="display: block; margin: auto;" />
+<img src="misc/logo-1.png" alt="" style="display: block; margin: auto;" />
 
 **Gladius** aka "gladius" is a **full-stack web framework** facilitating web application development exclusively in pure **Python**, eliminating the need for HTML, CSS, or JavaScript. It is built for those who prefer to use Python, providing access to features typically found in modern web frameworks.
 
