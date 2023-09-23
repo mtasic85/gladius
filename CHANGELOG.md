@@ -1,9 +1,16 @@
 # CHANGELOG
 
+## v0.1.x
+
+Todo:
+    - Fix Text element.
+    - Fix Component registration of ComponentLibrary's sub-classes.
+
 ## v0.1.2
 
 Added:
     - HTML5 Components: Html, Head, Meta, Link, Title, Script, Body, Div, Span.
+    - Added example: hello_world_1.
 
 Changed:
     - Component uses `hx-target='[sf_id="ID"]'` instead of `hx-target="#ID"`.
@@ -11,10 +18,7 @@ Changed:
 
 Fixed:
     - Cyclic reference imports.
-
-Todo:
-    - Fix Text element.
-    - Fix Component registration of ComponentLibrary's sub-classes.
+    - Fixed examples: multi_page_0, hello_world_0.
 
 ## v0.1.1
 
