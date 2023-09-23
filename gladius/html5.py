@@ -8,7 +8,6 @@ __all__ = [
     'Body',
     'Div',
     'Span',
-    'Text',
     'Html5',
 ]
 

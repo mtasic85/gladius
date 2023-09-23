@@ -12,6 +12,10 @@ Changed:
 Fixed:
     - Cyclic reference imports.
 
+Todo:
+    - Fix Text element.
+    - Fix Component registration of ComponentLibrary's sub-classes.
+
 ## v0.1.1
 
 Fixed:
