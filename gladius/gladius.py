@@ -4,9 +4,16 @@ __all__ = [
 ]
 
 import os
+import asyncio
 import inspect
 from collections import defaultdict
 from typing import TypedDict, Callable
+
+try:
+    import uvloop
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+except ImportError:
+    pass
 
 from aiohttp import web
 from aiohttp.web import middleware
@@ -37,6 +44,7 @@ class Gladius:
 
             response: web.Response
 
+            # TODO: check line below for better request handling
             # if inspect.ismethod(handler) and hasattr(handler, '__self__') and isinstance(handler.__self__, SystemRoute):
             if inspect.ismethod(handler):
                 response = await handler(request)
@@ -101,3 +109,6 @@ class Gladius:
 
     def get_app(self):
         return self.app
+
+    def run_app(self, *args, **kwargs):
+        web.run_app(self.app, *args, **kwargs)

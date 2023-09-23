@@ -62,12 +62,7 @@ class Component:
 
     def _render_value(self, k, v) -> str:
         r: str
-
-        # if k in ('hx-vals', 'hx-vars', 'multi-path-deps'):
-        #     r = f"'{json.dumps(v)}'"
-        # else:
-        #     r = json.dumps(v)
-
+        
         if isinstance(v, str):
             r = json.dumps(v)
         else:
@@ -78,7 +73,7 @@ class Component:
     def _render_prop(self, k, v):
         prop: str
 
-        if k in ('onclick',) and callable(v):
+        if k == 'onclick' and callable(v):
             sf_id: str = self.props['sf_id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
@@ -90,7 +85,21 @@ class Component:
             ])
 
             self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
-        elif k in ('_ontablechange',) and callable(v):
+        elif k == '_ontablechange' and callable(v):
+            sf_id: str = self.props['sf_id']
+            event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
+
+            prop = ' '.join([
+                f'id="table-{sf_id}"',
+                f'hx-get="/api/1.0/_event/{event_type}/{sf_id}"',
+                'hx-trigger="multi-path-deps"',
+                'multi-path-deps=\'["/api/1.0/_event"]\'',
+                f'hx-target="#table-{sf_id}"',
+                'hx-swap="outerHTML"',
+            ])
+
+            self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
+        elif k == '_ontextchange' and callable(v):
             sf_id: str = self.props['sf_id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
@@ -143,8 +152,19 @@ class Text(Component):
         super().__init__(component_library, **kwargs)
         self.content = content
 
+        async def _ontextchange(text: Text, req: 'EventRequest'):
+            print('_ontextchange', text, req)
+            pass
+
+        event_type: str = '_ontextchange'
+        self.props[event_type] = _ontextchange
+
     def render(self) -> str:
-        return self.content
+        return f'''
+            <span {self.render_props()}>
+                {self.content}
+            </span>
+        '''
 
 class ComponentLibrary:
     ctx: 'Gladius'

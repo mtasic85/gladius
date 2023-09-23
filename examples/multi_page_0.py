@@ -1,13 +1,10 @@
-import asyncio
 from random import randint
-
-from aiohttp import web
 
 from gladius import Gladius, Component, EventRequest
 from gladius.daisyui import DaisyUI
 
-sf = Gladius()
-ui = DaisyUI(sf)
+g = Gladius()
+ui = DaisyUI(g)
 
 def MyNavbar() -> Component:
     navbar = ui.Navbar(hx_boost='true')
@@ -86,11 +83,11 @@ def SignUpPage() -> Component:
     page.add(navbar := MyNavbar())
     return page
 
-sf.route('/', RootPage())
-sf.route('/dashboard', DashboardPage())
-sf.route('/signin', SignInPage())
-sf.route('/signup', SignUpPage())
-app = sf.get_app()
+g.route('/', RootPage())
+g.route('/dashboard', DashboardPage())
+g.route('/signin', SignInPage())
+g.route('/signup', SignUpPage())
+app = g.get_app()
 
 if __name__ == '__main__':
-    web.run_app(app, host='0.0.0.0', port=5000)
+    g.run_app(host='0.0.0.0', port=5000)

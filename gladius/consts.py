@@ -96,5 +96,6 @@ EVENT_HANDLER_EVENT_TYPE_MAP: dict[str, str] = {
     'onvisibilitychange': 'visibilitychange',
 
     # custom
+    '_ontextchange': '_textchange',
     '_ontablechange': '_tablechange',
 }

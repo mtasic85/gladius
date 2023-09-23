@@ -38,7 +38,6 @@ class Page(Component):
                     <script src="https://unpkg.com/htmx.org/dist/ext/debug.js"></script>
                     <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
                     <script src="https://unpkg.com/htmx.org/dist/ext/event-header.js"></script>
-                    <!-- <script src="https://unpkg.com/htmx.org/dist/ext/path-deps.js"></script> -->
                     <script src="/static/gladius/multi-path-deps.js"></script>
                 </head>
                 <body hx-ext='multi-path-deps'>
