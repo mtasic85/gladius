@@ -3,7 +3,7 @@
 ## v0.1.2
 
 Added:
-    - Added HTML5 tags: html, head, body.
+    - HTML5 tags: html, head, body.
 
 Changed:
     - Component uses `hx-target='[sf_id="ID"]'` instead of `hx-target="#ID"`.
