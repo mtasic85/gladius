@@ -1,7 +1,7 @@
 # gladius
 Full-stack web apps in Python
 
-<img src="misc/logo-0.png" alt="WizardLM" style="display: block; margin: auto;" />
+<img src="misc/logo-1.png" alt="WizardLM" style="display: block; margin: auto;" />
 
 ## Install
 ```bash
