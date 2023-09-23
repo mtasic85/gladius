@@ -16,6 +16,7 @@ class Component:
     component_library: 'ComponentLibrary'
     props: dict
     children: list['Component']
+    default_tag: str | None = None
     default_class: str = ''
     
     def __init__(self, component_library: 'ComponentLibrary', **kwargs):
@@ -116,23 +117,26 @@ class Component:
         return rendered_children
 
     def render(self) -> str:
-        raise NotImplemented
+        return f'''
+            <{self.default_tag} {self.render_props()}>
+                {self.render_children()}
+            </{self.default_tag}>
+        '''
+
+class Html(Component):
+    default_tag: str = 'html'
+
+class Head(Component):
+    default_tag: str = 'head'
+
+class Body(Component):
+    default_tag: str = 'body'
 
 class Div(Component):
-    def render(self) -> str:
-        return f'''
-            <div {self.render_props()}>
-                {self.render_children()}
-            </div>
-        '''
+    default_tag: str = 'div'
 
 class Span(Component):
-    def render(self) -> str:
-        return f'''
-            <span {self.render_props()}>
-                {self.render_children()}
-            </span>
-        '''
+    default_tag: str = 'span'
 
 class Text(Component):
     content: str
