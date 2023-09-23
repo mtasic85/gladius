@@ -1,4 +1,4 @@
-# swordfish
+# gladius
 Full-stack web apps in Python
 
 ## Install
