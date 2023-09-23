@@ -10,6 +10,7 @@ from uuid import uuid4
 from typing import Union
 
 from .consts import EVENT_HANDLER_EVENT_TYPE_MAP
+from .gladius import Gladius, EventRequest
 
 class Component:
     component_library: 'ComponentLibrary'
@@ -73,49 +74,35 @@ class Component:
     def _render_prop(self, k, v):
         prop: str
 
-        if k == 'onclick' and callable(v):
+        if not k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
+            # standard events
             sf_id: str = self.props['sf_id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
             prop = ' '.join([
-                'hx-trigger="click"',
+                f'hx-trigger="{event_type}"',
                 f'hx-post="/api/1.0/_event/{event_type}/{sf_id}"',
                 'hx-ext="json-enc,event-header"',
                 'hx-swap="none"',
             ])
 
             self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
-        elif k == '_ontablechange' and callable(v):
+        elif k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
+            # custom events
             sf_id: str = self.props['sf_id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
             prop = ' '.join([
-                # f'id="table-{sf_id}"',
-                f'hx-get="/api/1.0/_event/{event_type}/{sf_id}"',
                 'hx-trigger="multi-path-deps"',
-                'multi-path-deps=\'["/api/1.0/_event"]\'',
-                # f'hx-target="#table-{sf_id}"',
-                f'hx-target=\'[sf_id="{sf_id}"]\'',
-                'hx-swap="outerHTML"',
-            ])
-
-            self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
-        elif k == '_ontextchange' and callable(v):
-            sf_id: str = self.props['sf_id']
-            event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
-
-            prop = ' '.join([
-                # f'id="text-{sf_id}"',
                 f'hx-get="/api/1.0/_event/{event_type}/{sf_id}"',
-                'hx-trigger="multi-path-deps"',
                 'multi-path-deps=\'["/api/1.0/_event"]\'',
-                # f'hx-target="#text-{sf_id}"',
                 f'hx-target=\'[sf_id="{sf_id}"]\'',
                 'hx-swap="outerHTML"',
             ])
 
             self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
         else:
+            # other props - non-event/non-callback props
             prop = f'{k}={self._render_value(k, v)}'
         
         return prop
@@ -154,7 +141,7 @@ class Text(Component):
         super().__init__(component_library, **kwargs)
         self.content = content
 
-        async def _ontextchange(text: Text, req: 'EventRequest'):
+        async def _ontextchange(text: Text, req: EventRequest):
             # print('_ontextchange', text, req)
             pass
 
@@ -169,14 +156,16 @@ class Text(Component):
         '''
 
 class ComponentLibrary:
-    ctx: 'Gladius'
+    ctx: Gladius
     component_map: dict[str, type]
 
-    def __init__(self, ctx: 'Gladius'):
+    def __init__(self, ctx: Gladius):
         self.ctx = ctx
 
         component_map: dict[str, Component] = {
-            k: v for k, v in dict(globals()).items() if isinstance(v, type) and issubclass(v, Component)
+            k: v
+            for k, v in dict(globals()).items()
+            if isinstance(v, type) and issubclass(v, Component)
         }
 
         self.component_map = component_map

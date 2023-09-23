@@ -5,6 +5,9 @@
 Changed:
     - Component uses `hx-target='[sf_id="ID"]'` instead of `hx-target="#ID"`.
 
+Fixed:
+    - Cyclic reference imports.
+
 ## v0.1.1
 
 Fixed:

@@ -20,7 +20,6 @@ from aiohttp.web import middleware
 from aiohttp.web_urldispatcher import SystemRoute
 
 from .consts import EVENT_HANDLER_EVENT_TYPE_MAP
-from .component import Component
 
 class EventRequest(TypedDict, total=False):
     sf_id: str
@@ -29,7 +28,7 @@ class EventRequest(TypedDict, total=False):
 
 class Gladius:
     app: web.Application
-    callbacks: dict[str, dict[str, tuple[Component, Callable]]] # {sf_id: {event_type: [component, func]}}
+    callbacks: dict[str, dict[str, tuple['Component', Callable]]] # {sf_id: {event_type: [component, func]}}
 
     def __init__(self):
         @middleware
@@ -80,7 +79,7 @@ class Gladius:
         routes = [web.route(method.lower(), path, handler)]
         self.app.add_routes(routes)
 
-    def route(self, path, component: Component):
+    def route(self, path, component: 'Component'):
         async def _handler(sf, req) -> str:
             rendered_component: str = component.render()
             return rendered_component

@@ -7,9 +7,10 @@ class Page(Component):
     default_class: str = 'container mx-auto'
     title: str
 
-    def __init__(self, *args, title: str='Gladius', **kwargs):
+    def __init__(self, *args, title: str='Gladius', favicon: str='/static/gladius/favicon.png', **kwargs):
         super().__init__(*args, **kwargs)
         self.title = title
+        self.favicon = favicon
 
     def render(self) -> str:
         rendered_children = '\n'.join(c.render() for c in self.children)
@@ -20,7 +21,7 @@ class Page(Component):
                 <head>
                     <meta charset="utf-8" />
                     <meta name="viewport" content="width=device-width" />
-                    <link rel="shortcut icon" type="image/png" href="/static/gladius/favicon.png" />
+                    <link rel="shortcut icon" type="image/png" href="{self.favicon}" />
                     <title>{self.title}</title>
 
                     <!-- daisyui -->
@@ -30,7 +31,7 @@ class Page(Component):
                       type="text/css"
                     />
 
-                    <!-- tailwindcss -->
+                    <!-- tailwind -->
                     <script src="https://cdn.tailwindcss.com"></script>
 
                     <!-- htmx -->
@@ -147,7 +148,9 @@ class DaisyUI(ComponentLibrary):
         super().__init__(ctx)
 
         component_map: dict[str, Component] = {
-            k: v for k, v in dict(globals()).items() if isinstance(v, type) and issubclass(v, Component)
+            k: v
+            for k, v in dict(globals()).items()
+            if isinstance(v, type) and issubclass(v, Component)
         }
 
         self.component_map = {**self.component_map, **component_map}
