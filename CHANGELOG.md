@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v0.1.2
+
+Changed:
+    - Component uses `hx-target='[sf_id="ID"]'` instead of `hx-target="#ID"`.
+
 ## v0.1.1
 
 Fixed:

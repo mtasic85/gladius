@@ -90,11 +90,12 @@ class Component:
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
             prop = ' '.join([
-                f'id="table-{sf_id}"',
+                # f'id="table-{sf_id}"',
                 f'hx-get="/api/1.0/_event/{event_type}/{sf_id}"',
                 'hx-trigger="multi-path-deps"',
                 'multi-path-deps=\'["/api/1.0/_event"]\'',
-                f'hx-target="#table-{sf_id}"',
+                # f'hx-target="#table-{sf_id}"',
+                f'hx-target=\'[sf_id="{sf_id}"]\'',
                 'hx-swap="outerHTML"',
             ])
 
@@ -104,11 +105,12 @@ class Component:
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
             prop = ' '.join([
-                f'id="table-{sf_id}"',
+                # f'id="text-{sf_id}"',
                 f'hx-get="/api/1.0/_event/{event_type}/{sf_id}"',
                 'hx-trigger="multi-path-deps"',
                 'multi-path-deps=\'["/api/1.0/_event"]\'',
-                f'hx-target="#table-{sf_id}"',
+                # f'hx-target="#text-{sf_id}"',
+                f'hx-target=\'[sf_id="{sf_id}"]\'',
                 'hx-swap="outerHTML"',
             ])
 

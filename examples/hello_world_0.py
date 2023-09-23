@@ -29,7 +29,7 @@ card.add(world_text := ui.Text('World'))
 vflex.add(hflex := ui.Flex())
 hflex.add(join := ui.Join())
 join.add(button := ui.Button(class_='btn btn-primary', onclick=hello_button_click).add('Hello'))
-join.add(button := ui.Button(class_='btn btn-secondary', onclick=world_button_click).add('World'))
+join.add(join := ui.Button(class_='btn btn-success', onclick=world_button_click).add('World'))
 
 # router
 g.route('/', page)

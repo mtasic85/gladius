@@ -6,7 +6,7 @@ from gladius.daisyui import DaisyUI
 g = Gladius()
 ui = DaisyUI(g)
 
-def MyNavbar() -> Component:
+def my_navbar() -> Component:
     navbar = ui.Navbar(hx_boost='true')
     navbar.add(a := ui.Link(href='/').add('Home'))
     navbar.add(a := ui.Link(href='/dashboard').add('Dashboard'))
@@ -14,7 +14,7 @@ def MyNavbar() -> Component:
     navbar.add(a := ui.Link(href='/signup').add('Sign Up'))
     return navbar
 
-def MyJoin() -> Component:
+def my_join() -> Component:
     join = ui.Join(hx_boost='true')
     join.add(a := ui.Link(class_='btn join-item', href='/').add('Home'))
     join.add(a := ui.Link(class_='btn join-item', href='/dashboard').add('Dashboard'))
@@ -22,21 +22,21 @@ def MyJoin() -> Component:
     join.add(a := ui.Link(class_='btn join-item', href='/signup').add('Sign Up'))
     return join
 
-def RootPage() -> Component:
+def root_page() -> Component:
     # root/index
     page = ui.Page(title='TangledLabs')
 
     # navbar
-    page.add(navbar := MyNavbar())
+    page.add(navbar := my_navbar())
 
     # join buttons
     page.add(flex := ui.Flex())
-    flex.add(join := MyJoin())
+    flex.add(join := my_join())
     return page
 
-def DashboardPage() -> Component:
+def dashboard_page() -> Component:
     page = ui.Page(title='Dashboard')
-    page.add(navbar := MyNavbar())
+    page.add(navbar := my_navbar())
     
     # vflex - Hello World
     page.add(vflex := ui.VFlex())
@@ -73,20 +73,20 @@ def DashboardPage() -> Component:
     vflex.add(table_1 := ui.Table(header=header, rows=rows))
     return page
 
-def SignInPage() -> Component:
+def sign_in_page() -> Component:
     page = ui.Page(title='Sign In')
-    page.add(navbar := MyNavbar())
+    page.add(navbar := my_navbar())
     return page
 
-def SignUpPage() -> Component:
+def sign_up_page() -> Component:
     page = ui.Page(title='Sign In')
-    page.add(navbar := MyNavbar())
+    page.add(navbar := my_navbar())
     return page
 
-g.route('/', RootPage())
-g.route('/dashboard', DashboardPage())
-g.route('/signin', SignInPage())
-g.route('/signup', SignUpPage())
+g.route('/', root_page())
+g.route('/dashboard', dashboard_page())
+g.route('/signin', sign_in_page())
+g.route('/signup', sign_up_page())
 app = g.get_app()
 
 if __name__ == '__main__':
