@@ -20,14 +20,35 @@ Gladius integrates basic **HTML5** elements, **TailwindCSS** styling, and **Dais
 
 In essence, gladius offers a simplified and cohesive development experience, making it a practical choice for developers seeking a Python-centric approach to both frontend and backend development.
 
+## Hello World
+
+```python
+
+```
+
 ## Install
 ```bash
 pip install gladius
 ```
 
 ## Run Examples
+
 ```bash
+git clone https://github.com/mtasic85/gladius.git
+cd gladius
 python -m venv venv
 source venv/bin/activate
-gunicorn app:app --reload --bind '0.0.0.0:5000' --worker-class aiohttp.GunicornWebWorker
+pip install
+```
+
+Hello world:
+
+```bash
+gunicorn examples.hello_world_0:app --reload --bind '0.0.0.0:5000' --worker-class aiohttp.GunicornWebWorker
+```
+
+Multi-page:
+
+```bash
+gunicorn examples.multi_page_0:app --reload --bind '0.0.0.0:5000' --worker-class aiohttp.GunicornWebWorker
 ```

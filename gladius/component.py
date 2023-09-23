@@ -62,7 +62,7 @@ class Component:
 
     def _render_value(self, k, v) -> str:
         r: str
-        
+
         if isinstance(v, str):
             r = json.dumps(v)
         else:
@@ -153,7 +153,7 @@ class Text(Component):
         self.content = content
 
         async def _ontextchange(text: Text, req: 'EventRequest'):
-            print('_ontextchange', text, req)
+            # print('_ontextchange', text, req)
             pass
 
         event_type: str = '_ontextchange'
