@@ -24,7 +24,7 @@ def my_join() -> Component:
 
 def root_page() -> Component:
     # root/index
-    page = ui.Page(title='TangledLabs')
+    page = ui.Page(title='Multi Page 0')
 
     # navbar
     page.add(navbar := my_navbar())

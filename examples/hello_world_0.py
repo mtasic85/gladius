@@ -15,7 +15,7 @@ async def world_button_click(button: Component, req: EventRequest):
     world_text.content = f'World {randint(0, 100)}'
 
 # page
-page = ui.Page(title='Hello world', class_='p-10')
+page = ui.Page(title='Hello world 0', class_='p-10')
 page.add(vflex := ui.VFlex())
 
 # top cards

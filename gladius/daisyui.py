@@ -1,7 +1,21 @@
-__all__ = ['DaisyUI']
+__all__ = [
+    'Page',
+    'Navbar',
+    'Link',
+    'Flex',
+    'VFlex',
+    'Card',
+    'Join',
+    'VJoin',
+    'Button',
+    'Table',
+    'Text',
+    'DaisyUI',
+]
 
 from .gladius import Gladius, EventRequest
-from .component import Component, Div, ComponentLibrary
+from .component import Component, ComponentLibrary
+from .html5 import Div
 
 class Page(Component):
     default_class: str = 'container mx-auto'
@@ -141,6 +155,28 @@ class Table(Component):
                     {rendered_rows}
                 </tbody>
             </table>
+        '''
+
+class Text(Component):
+    content: str
+
+    def __init__(self, component_library: 'ComponentLibrary', content: str='', **kwargs):
+        super().__init__(component_library, **kwargs)
+        self.content = content
+
+        async def _ontextchange(text: Text, req: EventRequest):
+            # print('_ontextchange', text, req)
+            pass
+
+        event_type: str = '_ontextchange'
+        self.props[event_type] = _ontextchange
+
+    def render(self) -> str:
+        # FIXME: span element is unnecessary, but it is workaorund
+        return f'''
+            <span {self.render_props()}>
+                {self.content}
+            </span>
         '''
 
 class DaisyUI(ComponentLibrary):

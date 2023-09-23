@@ -1,7 +1,5 @@
 __all__ = [
     'Component',
-    'Div',
-    'Text',
     'ComponentLibrary',
 ]
 
@@ -16,8 +14,16 @@ class Component:
     component_library: 'ComponentLibrary'
     props: dict
     children: list['Component']
-    default_tag: str | None = None
+    default_tag: str = 'div'
     default_class: str = ''
+    default_props: dict[str, str] = {}
+
+    # A void element is an element in HTML that cannot have any child nodes
+    # (i.e., nested elements or text nodes).
+    # Void elements only have a start tag;
+    # end tags must not be specified for void elements.
+    # https://developer.mozilla.org/en-US/docs/Glossary/Void_element
+    void_element: bool = False
     
     def __init__(self, component_library: 'ComponentLibrary', **kwargs):
         self.component_library = component_library
@@ -40,7 +46,7 @@ class Component:
             if k not in ('class', 'class_', 'id', 'id_')
         }
 
-        self.props = {}
+        self.props = {**self.default_props}
         
         if class_:
             self.props['class'] = class_
@@ -56,8 +62,9 @@ class Component:
         self.children = []
 
     def add(self, child: Union['Component', str]) -> 'Component':
-        if isinstance(child, str):
-            child = Text(component_library=self.component_library, content=child)
+        # FIXME:
+        # if isinstance(child, str):
+        #     child = Text(component_library=self.component_library, content=child)
 
         self.children.append(child)
         return self
@@ -117,47 +124,20 @@ class Component:
         return rendered_children
 
     def render(self) -> str:
-        return f'''
-            <{self.default_tag} {self.render_props()}>
-                {self.render_children()}
-            </{self.default_tag}>
-        '''
-
-class Html(Component):
-    default_tag: str = 'html'
-
-class Head(Component):
-    default_tag: str = 'head'
-
-class Body(Component):
-    default_tag: str = 'body'
-
-class Div(Component):
-    default_tag: str = 'div'
-
-class Span(Component):
-    default_tag: str = 'span'
-
-class Text(Component):
-    content: str
-
-    def __init__(self, component_library: 'ComponentLibrary', content: str='', **kwargs):
-        super().__init__(component_library, **kwargs)
-        self.content = content
-
-        async def _ontextchange(text: Text, req: EventRequest):
-            # print('_ontextchange', text, req)
-            pass
-
-        event_type: str = '_ontextchange'
-        self.props[event_type] = _ontextchange
-
-    def render(self) -> str:
-        return f'''
-            <span {self.render_props()}>
-                {self.content}
-            </span>
-        '''
+        if self.void_element:
+            return f'''
+                <{self.default_tag} {self.render_props()} />
+            '''
+        elif self.children:
+            return f'''
+                <{self.default_tag} {self.render_props()}>
+                    {self.render_children()}
+                </{self.default_tag}>
+            '''
+        else:
+            return f'''
+                <{self.default_tag} {self.render_props()}></{self.default_tag}>
+            '''
 
 class ComponentLibrary:
     ctx: Gladius

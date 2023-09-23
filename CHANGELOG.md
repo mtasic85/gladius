@@ -3,10 +3,11 @@
 ## v0.1.2
 
 Added:
-    - HTML5 tags: html, head, body.
+    - HTML5 Components: Html, Head, Meta, Link, Title, Script, Body, Div, Span.
 
 Changed:
     - Component uses `hx-target='[sf_id="ID"]'` instead of `hx-target="#ID"`.
+    - Moved Html5 Components into independent module `html5`.
 
 Fixed:
     - Cyclic reference imports.
