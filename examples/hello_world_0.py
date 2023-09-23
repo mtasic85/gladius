@@ -19,18 +19,19 @@ page = ui.Page(title='Hello world', class_='p-10')
 page.add(vflex := ui.VFlex())
 
 # top cards
-vflex.add(hello_card := ui.Card())
-hello_card.add(hello_text := ui.Text('Hello'))
+vflex.add(card := ui.Card())
+card.add(hello_text := ui.Text('Hello'))
 
-vflex.add(world_card := ui.Card())
-world_card.add(world_text := ui.Text('World'))
+vflex.add(card := ui.Card())
+card.add(world_text := ui.Text('World'))
 
 # buttons
 vflex.add(hflex := ui.Flex())
 hflex.add(join := ui.Join())
-join.add(btn := ui.Button(class_='btn btn-primary', onclick=hello_button_click).add('Hello'))
-join.add(btn := ui.Button(class_='btn btn-secondary', onclick=world_button_click).add('World'))
+join.add(button := ui.Button(class_='btn btn-primary', onclick=hello_button_click).add('Hello'))
+join.add(button := ui.Button(class_='btn btn-secondary', onclick=world_button_click).add('World'))
 
+# router
 g.route('/', page)
 app = g.get_app()
 
