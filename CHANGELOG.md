@@ -3,8 +3,9 @@
 ## v0.1.3
 
 Todo:
-    - Fix Text element.
-    - Fix Component registration of ComponentLibrary's sub-classes.
+    - Fix: Rename prop to attr because of HTML convention.
+    - Fix: Component registration of ComponentLibrary's sub-classes.
+    - Fix: Text element should standalone string, but not span element.
 
 ## v0.1.2
 
