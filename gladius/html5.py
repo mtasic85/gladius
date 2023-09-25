@@ -8,11 +8,39 @@ __all__ = [
     'Body',
     'Div',
     'Span',
+    'Footer',
+    'Nav',
+    'Header',
+    'H1',
+    'H2',
+    'H3',
+    'H4',
+    'P',
+    'A',
+    'BlockQuote',
+    'Figure',
+    'FigCaption',
+    'Strong',
+    'Em',
+    'Code',
+    'Pre',
+    'Ol',
+    'Ul',
+    'Li',
+    'Table',
+    'THead',
+    'Tr',
+    'Th',
+    'Td',
+    'Img',
+    'Video',
+    'Source',
+    'Hr',
     'Html5',
 ]
 
 from .gladius import Gladius
-from .component import Component, ComponentLibrary
+from .component import Component, TextContentComponent, ComponentLibrary
 
 class Html(Component):
     default_tag: str = 'html'
@@ -37,27 +65,14 @@ class Link(Component):
     default_tag: str = 'link'
     void_element: bool = True
 
-class Title(Component):
+class Title(TextContentComponent):
     default_tag: str = 'title'
-    content: str
-
-    def __init__(self, component_library: 'ComponentLibrary', content: str='', **kwargs):
-        super().__init__(component_library, **kwargs)
-        self.content = content
-
-    def render(self) -> str:
-        return f'''
-            <{self.default_tag}> {self.content} </{self.default_tag}>
-        '''
 
 class Script(Component):
     default_tag: str = 'script'
 
 class Body(Component):
     default_tag: str = 'body'
-
-class A(Component):
-    default_tag: str = 'a'
 
 class Div(Component):
     default_tag: str = 'div'
@@ -73,6 +88,84 @@ class Nav(Component):
 
 class Header(Component):
     default_tag: str = 'header'
+
+class H1(TextContentComponent):
+    default_tag: str = 'h1'
+
+class H2(TextContentComponent):
+    default_tag: str = 'h2'
+
+class H3(TextContentComponent):
+    default_tag: str = 'h3'
+
+class H4(TextContentComponent):
+    default_tag: str = 'h4'
+
+class P(TextContentComponent):
+    default_tag: str = 'p'
+
+class A(Component):
+    default_tag: str = 'a'
+
+class BlockQuote(Component):
+    default_tag: str = 'blockquote'
+
+class Figure(Component):
+    default_tag: str = 'figure'
+
+class FigCaption(Component):
+    default_tag: str = 'figcaption'
+
+class Strong(TextContentComponent):
+    default_tag: str = 'strong'
+
+class Em(TextContentComponent):
+    default_tag: str = 'em'
+
+class Code(Component):
+    default_tag: str = 'code'
+
+class Pre(TextContentComponent):
+    default_tag: str = 'pre'
+
+class Ol(Component):
+    default_tag: str = 'ol'
+
+class Ul(Component):
+    default_tag: str = 'ul'
+
+class Li(Component):
+    default_tag: str = 'li'
+
+class Table(Component):
+    default_tag: str = 'table'
+
+class THead(Component):
+    default_tag: str = 'thead'
+
+class Tr(Component):
+    default_tag: str = 'tr'
+
+class Th(Component):
+    default_tag: str = 'th'
+
+class Td(Component):
+    default_tag: str = 'td'
+
+class Img(Component):
+    default_tag: str = 'img'
+    void_element: bool = True
+
+class Video(Component):
+    default_tag: str = 'video'
+
+class Source(Component):
+    default_tag: str = 'source'
+    void_element: bool = True
+
+class Hr(Component):
+    default_tag: str = 'hr'
+    void_element: bool = True
 
 class Html5(ComponentLibrary):
     def __init__(self, ctx: Gladius):

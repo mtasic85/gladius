@@ -3,7 +3,6 @@ from random import randint
 from gladius import Gladius, Component, Event
 from gladius.daisyui import DaisyUI
 
-# glados daisyui
 g = Gladius()
 d = DaisyUI(g)
 

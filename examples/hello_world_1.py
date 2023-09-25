@@ -4,7 +4,6 @@ from gladius import Gladius, Component, Event
 from gladius.html5 import Html5
 from gladius.daisyui import DaisyUI
 
-# glados daisyui
 g = Gladius()
 html5 = Html5(g)
 d = DaisyUI(g)

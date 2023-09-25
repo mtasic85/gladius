@@ -1,5 +1,6 @@
 __all__ = [
     'Component',
+    'TextContentComponent',
     'ComponentLibrary',
 ]
 
@@ -157,6 +158,18 @@ class Component:
             return f'''
                 <{self.default_tag} {self.render_attrs()}></{self.default_tag}>
             '''
+
+class TextContentComponent(Component):
+    content: str
+
+    def __init__(self, component_library: 'ComponentLibrary', content: str='', **kwargs):
+        super().__init__(component_library, **kwargs)
+        self.content = content
+
+    def render(self) -> str:
+        return f'''
+            <{self.default_tag} {self.render_attrs()}> {self.content} </{self.default_tag}>
+        '''
 
 class ComponentLibrary:
     ctx: Gladius

@@ -8,7 +8,7 @@ g = Gladius()
 h = Html5(g)
 d = DaisyUI(g)
 
-page = d.Page(title='daisyui layout artboard')
+page = d.Page(title='daisyui layout divider')
 page.add(main_flex := d.VFlex(class_='p-10 space-y-10'))
 
 # vertical divider
