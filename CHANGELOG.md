@@ -2,11 +2,15 @@
 
 ## v0.1.3
 
+Added:
+    - DaisyUI: Artboard, Divider components.
+
 Changed:
     - Examples, rename `dui` to `d`.
     - Rename `prop{s}` to `attr{s}` because of HTML convention.
     - Rename attr `sf_id` to be `sf-id`.
     - Renamed `EventRequest` to `Event`.
+    - Updated DaisyUI from `2.6.0` to `3.7.7`.
 
 Fixed:
     - Component registration of ComponentLibrary's sub-classes.

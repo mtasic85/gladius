@@ -39,11 +39,7 @@ class Page(Component):
                     <title>{self.title}</title>
 
                     <!-- daisyui -->
-                    <link
-                      href="https://cdn.jsdelivr.net/npm/daisyui@2.6.0/dist/full.css"
-                      rel="stylesheet"
-                      type="text/css"
-                    />
+                    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.7/dist/full.css" rel="stylesheet" type="text/css" />
 
                     <!-- tailwind -->
                     <script src="https://cdn.tailwindcss.com"></script>
@@ -88,10 +84,12 @@ class Link(Component):
         '''
 
 class Flex(Div):
-    default_class: str = 'flex w-full gap-1'
+    # default_class: str = 'flex w-full gap-1'
+    default_class: str = 'flex w-full'
 
 class VFlex(Div):
-    default_class: str = 'flex flex-col w-full gap-1'
+    # default_class: str = 'flex flex-col w-full gap-1'
+    default_class: str = 'flex flex-col w-full'
 
 class Card(Div):
     default_class: str = 'grid h-20 flex-grow card bg-base-300 rounded-box place-items-center'
@@ -178,6 +176,18 @@ class Text(Component):
             </span>
         '''
 
+#
+# Layout
+#
+class Artboard(Div):
+    default_class: str = 'artboard'
+
+class Divider(Div):
+    default_class: str = 'divider'
+
+#
+# DaisyUI Component Library
+#
 class DaisyUI(ComponentLibrary):
     def __init__(self, ctx: Gladius):
         super().__init__(ctx)

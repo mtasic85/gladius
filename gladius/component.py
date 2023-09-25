@@ -5,7 +5,7 @@ __all__ = [
 
 import json
 from uuid import uuid4
-from typing import Union
+from typing import Union, Self
 
 from .consts import EVENT_HANDLER_EVENT_TYPE_MAP
 from .gladius import Gladius
@@ -61,10 +61,14 @@ class Component:
         # children
         self.children = []
 
-    def add(self, child: Union['Component', str]) -> 'Component':
+    def add_class(self, class_: str) -> Self:
+        self.attrs['class'] += ' ' + class_
+        return self
+
+    def add(self, child: Union['Component', str]) -> Self:
         # FIXME:
         # if isinstance(child, str):
-        #     child = Text(component_library=self.component_library, content=child)
+        #     child = h.Text(component_library=self.component_library, content=child)
 
         self.children.append(child)
         return self
