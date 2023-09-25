@@ -3,7 +3,8 @@
 ## v0.1.3
 
 Added:
-    - DaisyUI: Artboard, Divider components.
+    - DaisyUI: Artboard, Divider, Footer, FooterTitle components.
+    - HTML5: A, Footer, Nav, Header.
 
 Changed:
     - Examples, rename `dui` to `d`.

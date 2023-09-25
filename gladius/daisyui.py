@@ -15,7 +15,7 @@ __all__ = [
 
 from .gladius import Gladius, Event
 from .component import Component, ComponentLibrary
-from .html5 import Div
+from . import html5
 
 class Page(Component):
     default_class: str = 'container mx-auto'
@@ -71,6 +71,8 @@ class Navbar(Component):
             </div>
         '''
 
+# FIXME: wrong link component below
+"""
 class Link(Component):
     default_class: str = 'btn btn-ghost normal-case text-xl'
 
@@ -82,22 +84,25 @@ class Link(Component):
                 {rendered_children}
             </a>
         '''
+"""
+class Link(html5.A):
+    default_class: str = 'link'
 
-class Flex(Div):
+class Flex(html5.Div):
     # default_class: str = 'flex w-full gap-1'
     default_class: str = 'flex w-full'
 
-class VFlex(Div):
+class VFlex(html5.Div):
     # default_class: str = 'flex flex-col w-full gap-1'
     default_class: str = 'flex flex-col w-full'
 
-class Card(Div):
+class Card(html5.Div):
     default_class: str = 'grid h-20 flex-grow card bg-base-300 rounded-box place-items-center'
 
-class Join(Div):
+class Join(html5.Div):
     default_class: str = 'join'
 
-class VJoin(Div):
+class VJoin(html5.Div):
     default_class: str = 'join join-vertical'
 
 class Button(Component):
@@ -179,11 +184,19 @@ class Text(Component):
 #
 # Layout
 #
-class Artboard(Div):
+class Artboard(html5.Div):
     default_class: str = 'artboard'
 
-class Divider(Div):
+class Divider(html5.Div):
     default_class: str = 'divider'
+
+# TODO: Drawer
+
+class Footer(html5.Footer):
+    default_class: str = 'footer'
+
+class FooterTitle(html5.Header):
+    default_class: str = 'footer-title'
 
 #
 # DaisyUI Component Library

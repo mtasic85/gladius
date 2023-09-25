@@ -56,11 +56,23 @@ class Script(Component):
 class Body(Component):
     default_tag: str = 'body'
 
+class A(Component):
+    default_tag: str = 'a'
+
 class Div(Component):
     default_tag: str = 'div'
 
 class Span(Component):
     default_tag: str = 'span'
+
+class Footer(Component):
+    default_tag: str = 'footer'
+
+class Nav(Component):
+    default_tag: str = 'nav'
+
+class Header(Component):
+    default_tag: str = 'header'
 
 class Html5(ComponentLibrary):
     def __init__(self, ctx: Gladius):
