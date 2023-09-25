@@ -99,11 +99,10 @@ class Gladius:
     async def post_api_1_0__event(self, request: web.Request) -> web.Response:
         event_type: str = request.match_info['event_type']
         sf_id: str = request.match_info['sf_id']
-        # FIXME: read event from HTTP headers
-        req: Event = await request.json()
-        # print('post_api_1_0__event:', event_type, sf_id, req)
+        event: Event = request.headers['Triggering-Event']
+        # print('post_api_1_0__event:', event_type, sf_id, event)
         component, callback = self.callbacks[sf_id][event_type]
-        res: dict = await callback(component, req)
+        res: dict = await callback(component, event)
         # print('post_api_1_0__event:', res)
         return web.json_response(res)
 

@@ -10,6 +10,7 @@ Changed:
 
 Fixed:
     - Component registration of ComponentLibrary's sub-classes.
+    - Read `event: Event` from HTTP headers, and pass to callback.
 
 ## v0.1.2
 
