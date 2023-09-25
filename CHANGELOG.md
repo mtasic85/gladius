@@ -3,6 +3,7 @@
 ## v0.1.3
 
 Todo:
+    - Fix: Examples, rename `dui` to `d`. 
     - Fix: Rename prop to attr because of HTML convention.
     - Fix: Component registration of ComponentLibrary's sub-classes.
     - Fix: Text element should standalone string, but not span element.

@@ -7,7 +7,7 @@ from gladius.daisyui import DaisyUI
 # glados daisyui
 g = Gladius()
 html5 = Html5(g)
-dui = DaisyUI(g)
+d = DaisyUI(g)
 
 # callbacks
 async def hello_button_click(button: Component, req: EventRequest):
@@ -35,22 +35,22 @@ head.add(script := html5.Script(src='/static/gladius/multi-path-deps.js'))
 
 # body
 html.add(body := html5.Body(hx_ext='multi-path-deps'))
-body.add(vflex := dui.VFlex())
+body.add(vflex := d.VFlex())
 
 # top cards
-vflex.add(card := dui.Card())
-card.add(hello_text := dui.Text('Hello'))
+vflex.add(card := d.Card())
+card.add(hello_text := d.Text('Hello'))
 
-vflex.add(card := dui.Card())
-card.add(world_text := dui.Text('World'))
+vflex.add(card := d.Card())
+card.add(world_text := d.Text('World'))
 
 # buttons
-vflex.add(hflex := dui.Flex())
-hflex.add(join := dui.Join())
-join.add(button := dui.Button(class_='btn btn-primary', onclick=hello_button_click))
-button.add(text := dui.Text('Hello'))
-join.add(button := dui.Button(class_='btn btn-success', onclick=world_button_click))
-button.add(text := dui.Text('World'))
+vflex.add(hflex := d.Flex())
+hflex.add(join := d.Join())
+join.add(button := d.Button(class_='btn btn-primary', onclick=hello_button_click))
+button.add(text := d.Text('Hello'))
+join.add(button := d.Button(class_='btn btn-success', onclick=world_button_click))
+button.add(text := d.Text('World'))
 
 # router
 g.route('/', html)
