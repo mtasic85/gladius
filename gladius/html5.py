@@ -11,7 +11,7 @@ __all__ = [
     'Html5',
 ]
 
-from .gladius import Gladius, EventRequest
+from .gladius import Gladius
 from .component import Component, ComponentLibrary
 
 class Html(Component):

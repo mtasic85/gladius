@@ -1,5 +1,5 @@
 __all__ = [
-    'EventRequest',
+    'Event',
     'Gladius',
 ]
 
@@ -21,9 +21,9 @@ from aiohttp.web_urldispatcher import SystemRoute
 
 from .consts import EVENT_HANDLER_EVENT_TYPE_MAP
 
-class EventRequest(TypedDict, total=False):
+class Event(TypedDict, total=False):
     sf_id: str
-    type: str
+    # type: str
     # ...
 
 class Gladius:
@@ -99,7 +99,8 @@ class Gladius:
     async def post_api_1_0__event(self, request: web.Request) -> web.Response:
         event_type: str = request.match_info['event_type']
         sf_id: str = request.match_info['sf_id']
-        req: EventRequest = await request.json()
+        # FIXME: read event from HTTP headers
+        req: Event = await request.json()
         # print('post_api_1_0__event:', event_type, sf_id, req)
         component, callback = self.callbacks[sf_id][event_type]
         res: dict = await callback(component, req)

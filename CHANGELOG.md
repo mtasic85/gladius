@@ -6,6 +6,7 @@ Changed:
     - Examples, rename `dui` to `d`.
     - Rename `prop{s}` to `attr{s}` because of HTML convention.
     - Rename attr `sf_id` to be `sf-id`.
+    - Renamed `EventRequest` to `Event`.
 
 Fixed:
     - Component registration of ComponentLibrary's sub-classes.

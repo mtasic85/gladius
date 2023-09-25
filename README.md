@@ -25,7 +25,7 @@ In essence, gladius offers a simplified and cohesive development experience, mak
 ```python
 from random import randint
 
-from gladius import Gladius, Component, EventRequest
+from gladius import Gladius, Component, Event
 from gladius.daisyui import DaisyUI
 
 # glados daisyui
@@ -33,10 +33,10 @@ g = Gladius()
 dui = DaisyUI(g)
 
 # callbacks
-async def hello_button_click(button: Component, req: EventRequest):
+async def hello_button_click(button: Component, event: Event):
     hello_text.content = f'Hello {randint(0, 100)}'
 
-async def world_button_click(button: Component, req: EventRequest):
+async def world_button_click(button: Component, event: Event):
     world_text.content = f'World {randint(0, 100)}'
 
 # page

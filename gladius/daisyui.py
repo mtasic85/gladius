@@ -13,7 +13,7 @@ __all__ = [
     'DaisyUI',
 ]
 
-from .gladius import Gladius, EventRequest
+from .gladius import Gladius, Event
 from .component import Component, ComponentLibrary
 from .html5 import Div
 
@@ -124,8 +124,8 @@ class Table(Component):
         self.header = header
         self.rows = rows
 
-        async def _ontablechange(table: Table, req: EventRequest):
-            # print('_ontablechange', table, req)
+        async def _ontablechange(table: Table, event: Event):
+            # print('_ontablechange', table, event)
             pass
 
         event_type: str = '_ontablechange'
@@ -164,8 +164,8 @@ class Text(Component):
         super().__init__(component_library, **kwargs)
         self.content = content
 
-        async def _ontextchange(text: Text, req: EventRequest):
-            # print('_ontextchange', text, req)
+        async def _ontextchange(text: Text, event: Event):
+            # print('_ontextchange', text, event)
             pass
 
         event_type: str = '_ontextchange'

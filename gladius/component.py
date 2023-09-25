@@ -8,7 +8,7 @@ from uuid import uuid4
 from typing import Union
 
 from .consts import EVENT_HANDLER_EVENT_TYPE_MAP
-from .gladius import Gladius, EventRequest
+from .gladius import Gladius
 
 class Component:
     component_library: 'ComponentLibrary'

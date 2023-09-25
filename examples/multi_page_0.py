@@ -1,6 +1,6 @@
 from random import randint
 
-from gladius import Gladius, Component, EventRequest
+from gladius import Gladius, Component, Event
 from gladius.daisyui import DaisyUI
 
 g = Gladius()
@@ -45,14 +45,14 @@ def dashboard_page() -> Component:
     flex.add(card := d.Card().add(d.Text('World')))
     flex.add(card := d.Card().add(d.Text('!')))
     
-    async def add_button_click(button, req: EventRequest):
+    async def add_button_click(button, event: Event):
         row = [randint(0, 10) for i in range(3)]
         table_0.rows = [*table_0.rows, row]
         
         row = [randint(10, 100) for i in range(3)]
         table_1.rows = [*table_1.rows, row]
 
-    async def remove_button_click(button, req: EventRequest):
+    async def remove_button_click(button, event: Event):
         table_0.rows = [*table_0.rows[:-1]]
         table_1.rows = [*table_1.rows[:-1]]
     
