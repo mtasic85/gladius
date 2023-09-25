@@ -11,6 +11,14 @@ __all__ = [
     'Button',
     'Table',
     'Text',
+    'Artboard',
+    'Divider',
+    'Footer',
+    'FooterTitle',
+    'Hero',
+    'HeroContent',
+    'Indicator',
+    'IndicatorItem',
     'DaisyUI',
 ]
 
@@ -160,6 +168,7 @@ class Table(Component):
             </table>
         '''
 
+# FIXME:
 class Text(Component):
     content: str
 
@@ -204,6 +213,12 @@ class Hero(html5.Div):
 
 class HeroContent(html5.Div):
     default_class: str = 'hero-content'
+
+class Indicator(html5.Div):
+    default_class: str = 'indicator'
+
+class IndicatorItem(html5.Span):
+    default_class: str = 'indicator-item'
 
 #
 # DaisyUI Component Library

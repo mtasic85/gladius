@@ -21,10 +21,6 @@ main_flex.add(artboard := d.Artboard())
 artboard.add_class('phone-1 artboard-demo bg-[hsl(var(--b3)/var(--tw-bg-opacity))]')
 artboard.add(text := d.Text('320×568'))
 
-main_flex.add(artboard := d.Artboard())
-artboard.attrs['class'] += ' phone-2 artboard-demo bg-[hsl(var(--b3)/var(--tw-bg-opacity))]'
-artboard.add(text := d.Text('375×667'))
-
 #
 # divider
 #
@@ -86,6 +82,14 @@ hero_content.add(div := h.Div(class_='max-w-md'))
 div.add(h.H1('Hello there', class_='text-5xl font-bold'))
 div.add(h.P('Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.', class_='py-6'))
 div.add(d.Button('Get Started').add_class('btn-primary'))
+
+#
+# indicator
+#
+main_flex.add(h.H2('Indicator'))
+main_flex.add(indicator := d.Indicator())
+indicator.add(indicator_item := d.IndicatorItem('99+').add_class('badge badge-secondary'))
+indicator.add(button := d.Button('Inbox'))
 
 g.route('/', page)
 app = g.get_app()

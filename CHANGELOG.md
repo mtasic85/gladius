@@ -8,11 +8,13 @@ Added:
     - HTML5: Pre, Ol, Ul, Li, Table, THead, Tr, Th, Td, Img, Video, Source, Hr.
     - HTML5: Button.
     - DaisyUI: Hero, HeroContent.
+    - DaisyUI: Indicator, IndicatorItem.
     - Examples: Layout.
 
 Changed:
     - Tailwind Plugins: forms, typography, aspect-ratio, line-clamp.
     - DaisyUI: Button, support for text label in constructor.
+    - HTML5: Span is subclass of TextContentComponent.
 
 Removed:
     - Examples: Artboard, Divider, Footer.

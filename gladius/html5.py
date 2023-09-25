@@ -77,7 +77,7 @@ class Body(Component):
 class Div(Component):
     default_tag: str = 'div'
 
-class Span(Component):
+class Span(TextContentComponent):
     default_tag: str = 'span'
 
 class Footer(Component):

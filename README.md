@@ -52,10 +52,8 @@ card.add(world_text := d.Text('World'))
 # buttons
 vflex.add(hflex := d.Flex())
 hflex.add(join := d.Join())
-join.add(button := d.Button(onclick=hello_button_click).add_class('btn-primary'))
-button.add(text := d.Text('Hello'))
-join.add(button := d.Button(onclick=world_button_click).add_class('btn-secondary'))
-button.add(text := d.Text('World'))
+join.add(button := d.Button('Hello', onclick=hello_button_click).add_class('btn-primary'))
+join.add(button := d.Button('World', onclick=world_button_click).add_class('btn-secondary'))
 
 # router
 g.route('/', page)
