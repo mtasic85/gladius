@@ -1,6 +1,5 @@
 __all__ = [
     'Component',
-    'TextContentComponent',
     'ComponentLibrary',
 ]
 
@@ -9,7 +8,7 @@ from uuid import uuid4
 from typing import Union, Self
 
 from .consts import EVENT_HANDLER_EVENT_TYPE_MAP
-from .gladius import Gladius
+from .gladius import Gladius, Event
 
 class Component:
     component_library: 'ComponentLibrary'
@@ -64,6 +63,15 @@ class Component:
         self.content = content
         self.children = []
 
+        # content change
+        if self.default_tag not in ('button', 'a', 'input', 'textarea'):
+            async def _oncontentchange(content: str, event: Event):
+                # print('_oncontentchange', content, event)
+                pass
+
+            event_type: str = '_oncontentchange'
+            self.attrs[event_type] = _oncontentchange
+
     def add_class(self, class_: str) -> Self:
         component_class = self.attrs.get('class', '')
         class_ = component_class + ' ' + class_
@@ -103,10 +111,10 @@ class Component:
 
     def _render_attr(self, k, v):
         attr: str
+        sf_id: str = self.attrs['sf-id']
 
         if not k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
             # standard events
-            sf_id: str = self.attrs['sf-id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
             attr = ' '.join([
@@ -119,7 +127,6 @@ class Component:
             self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
         elif k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
             # custom events
-            sf_id: str = self.attrs['sf-id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
             attr = ' '.join([
@@ -152,7 +159,9 @@ class Component:
             '''
         elif self.content:
             return f'''
-                <{self.default_tag} {self.render_attrs()}> {self.content} </{self.default_tag}>
+                <{self.default_tag} {self.render_attrs()}>
+                    {self.content}
+                </{self.default_tag}>
             '''
         elif self.children:
             return f'''
@@ -164,9 +173,6 @@ class Component:
             return f'''
                 <{self.default_tag} {self.render_attrs()}></{self.default_tag}>
             '''
-
-class TextContentComponent(Component):
-    pass
 
 class ComponentLibrary:
     ctx: Gladius

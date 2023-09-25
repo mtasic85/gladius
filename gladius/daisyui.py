@@ -56,7 +56,7 @@ class Page(Component):
                     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.7/dist/full.css" rel="stylesheet" type="text/css" />
 
                     <!-- tailwind -->
-                    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+                    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
 
                     <!-- htmx -->
                     <script src="https://unpkg.com/htmx.org@1.9.5"></script>
@@ -162,7 +162,7 @@ class Table(Component):
 
         return f'''
             <table class="table" {self.render_attrs()}>
-                <thead>
+                <thead class="bg-base-200">
                     {rendered_header}
                 </thead>
                 <tbody> 

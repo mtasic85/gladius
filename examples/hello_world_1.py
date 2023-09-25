@@ -10,10 +10,14 @@ d = DaisyUI(g)
 
 # callbacks
 async def hello_button_click(button: Component, event: Event):
-    hello_text.content = f'Hello {randint(0, 100)}'
+    v: int = randint(0, 100)
+    hello_card.content = f'Hello {v}'
+    hello_button.content = f'Hello {v}'
 
 async def world_button_click(button: Component, event: Event):
-    world_text.content = f'World {randint(0, 100)}'
+    v: int = randint(0, 100)
+    world_card.content = f'World {v}'
+    world_button.content = f'World {v}'
 
 # html
 html = html5.Html()
@@ -36,18 +40,15 @@ head.add(script := html5.Script(src='/static/gladius/multi-path-deps.js'))
 html.add(body := html5.Body(hx_ext='multi-path-deps').add_class('p-10'))
 body.add(vflex := d.VFlex())
 
-# top cards
-vflex.add(card := d.Card())
-card.add(hello_text := d.Text('Hello'))
-
-vflex.add(card := d.Card())
-card.add(world_text := d.Text('World'))
+# cards
+vflex.add(hello_card := d.Card('Hello'))
+vflex.add(world_card := d.Card('World'))
 
 # buttons
-vflex.add(hflex := d.Flex())
-hflex.add(join := d.Join())
-join.add(button := d.Button('Hello', onclick=hello_button_click).add_class('btn-primary'))
-join.add(button := d.Button('World', onclick=world_button_click).add_class('btn-secondary'))
+vflex.add(join := d.Join())
+join.add(hello_button := d.Button('Hello', onclick=hello_button_click).add_class('btn-primary'))
+join.add(world_button := d.Button('World', onclick=world_button_click).add_class('btn-secondary'))
+
 
 # router
 g.route('/', html)

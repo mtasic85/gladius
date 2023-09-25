@@ -98,4 +98,5 @@ EVENT_HANDLER_EVENT_TYPE_MAP: dict[str, str] = {
     # custom
     '_ontextchange': '_textchange',
     '_ontablechange': '_tablechange',
+    '_oncontentchange': '_contentchange',
 }

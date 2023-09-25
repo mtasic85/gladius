@@ -36,11 +36,12 @@ __all__ = [
     'Video',
     'Source',
     'Hr',
+    'Button',
     'Html5',
 ]
 
 from .gladius import Gladius
-from .component import Component, TextContentComponent, ComponentLibrary
+from .component import Component, ComponentLibrary
 
 class Html(Component):
     default_tag: str = 'html'
@@ -65,7 +66,7 @@ class Link(Component):
     default_tag: str = 'link'
     void_element: bool = True
 
-class Title(TextContentComponent):
+class Title(Component):
     default_tag: str = 'title'
 
 class Script(Component):
@@ -74,10 +75,10 @@ class Script(Component):
 class Body(Component):
     default_tag: str = 'body'
 
-class Div(TextContentComponent):
+class Div(Component):
     default_tag: str = 'div'
 
-class Span(TextContentComponent):
+class Span(Component):
     default_tag: str = 'span'
 
 class Footer(Component):
@@ -89,19 +90,19 @@ class Nav(Component):
 class Header(Component):
     default_tag: str = 'header'
 
-class H1(TextContentComponent):
+class H1(Component):
     default_tag: str = 'h1'
 
-class H2(TextContentComponent):
+class H2(Component):
     default_tag: str = 'h2'
 
-class H3(TextContentComponent):
+class H3(Component):
     default_tag: str = 'h3'
 
-class H4(TextContentComponent):
+class H4(Component):
     default_tag: str = 'h4'
 
-class P(TextContentComponent):
+class P(Component):
     default_tag: str = 'p'
 
 class A(Component):
@@ -116,16 +117,16 @@ class Figure(Component):
 class FigCaption(Component):
     default_tag: str = 'figcaption'
 
-class Strong(TextContentComponent):
+class Strong(Component):
     default_tag: str = 'strong'
 
-class Em(TextContentComponent):
+class Em(Component):
     default_tag: str = 'em'
 
 class Code(Component):
     default_tag: str = 'code'
 
-class Pre(TextContentComponent):
+class Pre(Component):
     default_tag: str = 'pre'
 
 class Ol(Component):
@@ -167,7 +168,7 @@ class Hr(Component):
     default_tag: str = 'hr'
     void_element: bool = True
 
-class Button(TextContentComponent):
+class Button(Component):
     default_tag: str = 'button'
 
 class Html5(ComponentLibrary):

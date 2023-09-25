@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.1.5
+
+Changed:
+    - Tailwind: Plugin `line-clamp` is included by default from Tailwind v3.3.
+    - Component: can be triggered now on custom event `_contentchange`.
+
+Removed:
+    - Component: Removed need for `TextContentComponent`.
+
 ## v0.1.4
 
 Added:
