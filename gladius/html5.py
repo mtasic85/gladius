@@ -74,7 +74,7 @@ class Script(Component):
 class Body(Component):
     default_tag: str = 'body'
 
-class Div(Component):
+class Div(TextContentComponent):
     default_tag: str = 'div'
 
 class Span(TextContentComponent):

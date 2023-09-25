@@ -91,6 +91,23 @@ main_flex.add(indicator := d.Indicator())
 indicator.add(indicator_item := d.IndicatorItem('99+').add_class('badge badge-secondary'))
 indicator.add(button := d.Button('Inbox'))
 
+#
+# join
+#
+main_flex.add(h.H2('Join'))
+main_flex.add(join := d.Join())
+join.add(button := d.Button('Hello').add_class('btn-primary'))
+join.add(button := d.Button('World').add_class('btn-secondary'))
+
+#
+# stack
+#
+main_flex.add(h.H2('Stack'))
+main_flex.add(stack := d.Stack())
+stack.add(h.Div('1', class_='grid w-32 h-20 rounded bg-primary text-primary-content place-content-center'))
+stack.add(h.Div('2', class_='grid w-32 h-20 rounded bg-accent text-accent-content place-content-center'))
+stack.add(h.Div('3', class_='grid w-32 h-20 rounded bg-secondary text-secondary-content place-content-center'))
+
 g.route('/', page)
 app = g.get_app()
 

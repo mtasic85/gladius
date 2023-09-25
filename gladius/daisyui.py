@@ -19,6 +19,7 @@ __all__ = [
     'HeroContent',
     'Indicator',
     'IndicatorItem',
+    'Stack',
     'DaisyUI',
 ]
 
@@ -219,6 +220,11 @@ class Indicator(html5.Div):
 
 class IndicatorItem(html5.Span):
     default_class: str = 'indicator-item'
+
+# TODO: Mask
+
+class Stack(html5.Div):
+    default_class: str = 'stack'
 
 #
 # DaisyUI Component Library

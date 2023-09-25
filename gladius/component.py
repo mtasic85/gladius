@@ -14,6 +14,7 @@ from .gladius import Gladius
 class Component:
     component_library: 'ComponentLibrary'
     attrs: dict
+    content: str | None = None
     children: list['Component']
     default_tag: str = 'div'
     default_class: str = ''
@@ -26,7 +27,7 @@ class Component:
     # https://developer.mozilla.org/en-US/docs/Glossary/Void_element
     void_element: bool = False
     
-    def __init__(self, component_library: 'ComponentLibrary', **kwargs):
+    def __init__(self, component_library: 'ComponentLibrary', content: str | None=None, **kwargs):
         self.component_library = component_library
         
         # attrs
@@ -60,6 +61,7 @@ class Component:
         self.attrs.update(attrs)
 
         # children
+        self.content = content
         self.children = []
 
     def add_class(self, class_: str) -> Self:
@@ -148,6 +150,10 @@ class Component:
             return f'''
                 <{self.default_tag} {self.render_attrs()} />
             '''
+        elif self.content:
+            return f'''
+                <{self.default_tag} {self.render_attrs()}> {self.content} </{self.default_tag}>
+            '''
         elif self.children:
             return f'''
                 <{self.default_tag} {self.render_attrs()}>
@@ -160,16 +166,7 @@ class Component:
             '''
 
 class TextContentComponent(Component):
-    content: str
-
-    def __init__(self, component_library: 'ComponentLibrary', content: str='', **kwargs):
-        super().__init__(component_library, **kwargs)
-        self.content = content
-
-    def render(self) -> str:
-        return f'''
-            <{self.default_tag} {self.render_attrs()}> {self.content} </{self.default_tag}>
-        '''
+    pass
 
 class ComponentLibrary:
     ctx: Gladius
