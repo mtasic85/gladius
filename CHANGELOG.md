@@ -10,6 +10,7 @@ Added:
     - DaisyUI: Hero, HeroContent.
     - DaisyUI: Indicator, IndicatorItem.
     - DaisyUI: Stack.
+    - DaisyUI: Toast, Alert.
     - Examples: Layout.
 
 Changed:

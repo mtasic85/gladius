@@ -108,6 +108,16 @@ stack.add(h.Div('1', class_='grid w-32 h-20 rounded bg-primary text-primary-cont
 stack.add(h.Div('2', class_='grid w-32 h-20 rounded bg-accent text-accent-content place-content-center'))
 stack.add(h.Div('3', class_='grid w-32 h-20 rounded bg-secondary text-secondary-content place-content-center'))
 
+#
+# toast
+#
+main_flex.add(h.H2('Toast'))
+main_flex.add(toast := d.Toast().add_class('toast-top toast-end'))
+toast.add(alert := d.Alert().add_class('alert-info'))
+alert.add(span := h.Span('New mail arrived.'))
+toast.add(alert := d.Alert().add_class('alert-success'))
+alert.add(span := h.Span('Message sent successfully.'))
+
 g.route('/', page)
 app = g.get_app()
 

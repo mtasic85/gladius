@@ -20,6 +20,8 @@ __all__ = [
     'Indicator',
     'IndicatorItem',
     'Stack',
+    'Toast',
+    'Alert',
     'DaisyUI',
 ]
 
@@ -225,6 +227,12 @@ class IndicatorItem(html5.Span):
 
 class Stack(html5.Div):
     default_class: str = 'stack'
+
+class Toast(html5.Div):
+    default_class: str = 'toast'
+
+class Alert(html5.Div):
+    default_class: str = 'alert'
 
 #
 # DaisyUI Component Library
