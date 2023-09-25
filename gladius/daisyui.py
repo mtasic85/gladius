@@ -56,7 +56,7 @@ class Page(Component):
                     <script src="/static/gladius/multi-path-deps.js"></script>
                 </head>
                 <body hx-ext='multi-path-deps'>
-                    <div {self.render_props()}>
+                    <div {self.render_attrs()}>
                         {rendered_children}
                     </div>
                 </body>
@@ -70,7 +70,7 @@ class Navbar(Component):
         rendered_children = '\n'.join(c.render() for c in self.children)
 
         return f'''
-            <div {self.render_props()}>
+            <div {self.render_attrs()}>
                 {rendered_children}
             </div>
         '''
@@ -82,7 +82,7 @@ class Link(Component):
         rendered_children = '\n'.join(c.render() for c in self.children)
 
         return f'''
-            <a {self.render_props()}>
+            <a {self.render_attrs()}>
                 {rendered_children}
             </a>
         '''
@@ -110,7 +110,7 @@ class Button(Component):
 
     def render(self) -> str:
         return f'''
-            <button {self.render_props()}>
+            <button {self.render_attrs()}>
                 {self.render_children()}
             </button>
         '''
@@ -129,7 +129,7 @@ class Table(Component):
             pass
 
         event_type: str = '_ontablechange'
-        self.props[event_type] = _ontablechange
+        self.attrs[event_type] = _ontablechange
 
     def render(self) -> str:
         rendered_header = '\n'.join([
@@ -147,7 +147,7 @@ class Table(Component):
         ])
 
         return f'''
-            <table class="table" {self.render_props()}>
+            <table class="table" {self.render_attrs()}>
                 <thead>
                     {rendered_header}
                 </thead>
@@ -169,12 +169,12 @@ class Text(Component):
             pass
 
         event_type: str = '_ontextchange'
-        self.props[event_type] = _ontextchange
+        self.attrs[event_type] = _ontextchange
 
     def render(self) -> str:
         # FIXME: span element is unnecessary, but it is workaorund
         return f'''
-            <span {self.render_props()}>
+            <span {self.render_attrs()}>
                 {self.content}
             </span>
         '''
@@ -183,13 +183,11 @@ class DaisyUI(ComponentLibrary):
     def __init__(self, ctx: Gladius):
         super().__init__(ctx)
 
-        component_map: dict[str, Component] = {
+        self.component_map: dict[str, Component] = {
             k: v
             for k, v in dict(globals()).items()
             if isinstance(v, type) and issubclass(v, Component)
         }
-
-        self.component_map = {**self.component_map, **component_map}
 
     def __getattr__(self, attr):
         ComponentType: type = self.get_component_type(attr)

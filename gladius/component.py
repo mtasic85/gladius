@@ -12,11 +12,11 @@ from .gladius import Gladius, EventRequest
 
 class Component:
     component_library: 'ComponentLibrary'
-    props: dict
+    attrs: dict
     children: list['Component']
     default_tag: str = 'div'
     default_class: str = ''
-    default_props: dict[str, str] = {}
+    default_attrs: dict[str, str] = {}
 
     # A void element is an element in HTML that cannot have any child nodes
     # (i.e., nested elements or text nodes).
@@ -28,7 +28,7 @@ class Component:
     def __init__(self, component_library: 'ComponentLibrary', **kwargs):
         self.component_library = component_library
         
-        # props
+        # attrs
         if 'class' in kwargs:
             class_ = kwargs['class']
         elif 'class_' in kwargs:
@@ -40,23 +40,23 @@ class Component:
         id_ += kwargs.get('id', '')
         id_ += kwargs.get('id_', '')
 
-        props = {
+        attrs = {
             k.replace('_', '-'): v
             for k, v in kwargs.items()
             if k not in ('class', 'class_', 'id', 'id_')
         }
 
-        self.props = {**self.default_props}
+        self.attrs = {**self.default_attrs}
         
         if class_:
-            self.props['class'] = class_
+            self.attrs['class'] = class_
 
         if id_:
-            self.props['id'] = id_
+            self.attrs['id'] = id_
 
         # FIXME: requires sf_session
-        self.props['sf_id'] = str(uuid4())
-        self.props.update(props)
+        self.attrs['sf_id'] = str(uuid4())
+        self.attrs.update(attrs)
 
         # children
         self.children = []
@@ -79,15 +79,15 @@ class Component:
 
         return r
 
-    def _render_prop(self, k, v):
-        prop: str
+    def _render_attr(self, k, v):
+        attr: str
 
         if not k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
             # standard events
-            sf_id: str = self.props['sf_id']
+            sf_id: str = self.attrs['sf_id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
-            prop = ' '.join([
+            attr = ' '.join([
                 f'hx-trigger="{event_type}"',
                 f'hx-post="/api/1.0/_event/{event_type}/{sf_id}"',
                 'hx-ext="json-enc,event-header"',
@@ -97,10 +97,10 @@ class Component:
             self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
         elif k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
             # custom events
-            sf_id: str = self.props['sf_id']
+            sf_id: str = self.attrs['sf_id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
-            prop = ' '.join([
+            attr = ' '.join([
                 'hx-trigger="multi-path-deps"',
                 f'hx-get="/api/1.0/_event/{event_type}/{sf_id}"',
                 'multi-path-deps=\'["/api/1.0/_event"]\'',
@@ -110,14 +110,14 @@ class Component:
 
             self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
         else:
-            # other props - non-event/non-callback props
-            prop = f'{k}={self._render_value(k, v)}'
+            # other attrs - non-event/non-callback attrs
+            attr = f'{k}={self._render_value(k, v)}'
         
-        return prop
+        return attr
 
-    def render_props(self) -> str:
-        rendered_props: str = ' '.join(self._render_prop(k, v) for k, v in self.props.items())
-        return rendered_props
+    def render_attrs(self) -> str:
+        rendered_attrs: str = ' '.join(self._render_attr(k, v) for k, v in self.attrs.items())
+        return rendered_attrs
 
     def render_children(self) -> str:
         rendered_children: str = '\n'.join(c.render() for c in self.children)
@@ -126,17 +126,17 @@ class Component:
     def render(self) -> str:
         if self.void_element:
             return f'''
-                <{self.default_tag} {self.render_props()} />
+                <{self.default_tag} {self.render_attrs()} />
             '''
         elif self.children:
             return f'''
-                <{self.default_tag} {self.render_props()}>
+                <{self.default_tag} {self.render_attrs()}>
                     {self.render_children()}
                 </{self.default_tag}>
             '''
         else:
             return f'''
-                <{self.default_tag} {self.render_props()}></{self.default_tag}>
+                <{self.default_tag} {self.render_attrs()}></{self.default_tag}>
             '''
 
 class ComponentLibrary:

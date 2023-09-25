@@ -16,12 +16,12 @@ from .component import Component, ComponentLibrary
 
 class Html(Component):
     default_tag: str = 'html'
-    default_props: dict = {'lang': 'en-US'}
+    default_attrs: dict = {'lang': 'en-US'}
 
     def render(self) -> str:
         return f'''
             <!doctype html>
-            <{self.default_tag} {self.render_props()}>
+            <{self.default_tag} {self.render_attrs()}>
                 {self.render_children()}
             </{self.default_tag}>
         '''
@@ -66,13 +66,11 @@ class Html5(ComponentLibrary):
     def __init__(self, ctx: Gladius):
         super().__init__(ctx)
 
-        component_map: dict[str, Component] = {
+        self.component_map: dict[str, Component] = {
             k: v
             for k, v in dict(globals()).items()
             if isinstance(v, type) and issubclass(v, Component)
         }
-
-        self.component_map = {**self.component_map, **component_map}
 
     def __getattr__(self, attr):
         ComponentType: type = self.get_component_type(attr)
