@@ -1,6 +1,7 @@
 __all__ = [
     'Page',
     'Navbar',
+    'NavbarButton',
     'Link',
     'Flex',
     'VFlex',
@@ -73,9 +74,8 @@ class Navbar(Component):
             </div>
         '''
 
-# FIXME: wrong link component below
-"""
-class Link(Component):
+class NavbarButton(Component):
+    # NOTE: extended component
     default_class: str = 'btn btn-ghost normal-case text-xl'
 
     def render(self) -> str:
@@ -86,7 +86,7 @@ class Link(Component):
                 {rendered_children}
             </a>
         '''
-"""
+
 class Link(html5.A):
     default_class: str = 'link'
 
@@ -94,6 +94,7 @@ class Flex(html5.Div):
     default_class: str = 'flex w-full gap-1'
 
 class VFlex(Flex):
+    # NOTE: extended component
     default_class: str = 'flex flex-col w-full gap-1'
 
 class Card(html5.Div):
@@ -111,6 +112,7 @@ class Join(html5.Div):
         return self
 
 class VJoin(Join):
+    # NOTE: extended component
     default_class: str = 'join join-vertical'
 
 class Button(Component):

@@ -8,10 +8,10 @@ d = DaisyUI(g)
 
 def my_navbar() -> Component:
     navbar = d.Navbar(hx_boost='true')
-    navbar.add(a := d.Link(href='/').add(d.Text('Home')))
-    navbar.add(a := d.Link(href='/dashboard').add(d.Text('Dashboard')))
-    navbar.add(a := d.Link(href='/signin').add(d.Text('Sign In')))
-    navbar.add(a := d.Link(href='/signup').add(d.Text('Sign Up')))
+    navbar.add(a := d.NavbarButton(href='/').add(d.Text('Home')))
+    navbar.add(a := d.NavbarButton(href='/dashboard').add(d.Text('Dashboard')))
+    navbar.add(a := d.NavbarButton(href='/signin').add(d.Text('Sign In')))
+    navbar.add(a := d.NavbarButton(href='/signup').add(d.Text('Sign Up')))
     return navbar
 
 def my_join() -> Component:
@@ -76,11 +76,13 @@ def dashboard_page() -> Component:
 def sign_in_page() -> Component:
     page = d.Page(title='Sign In')
     page.add(navbar := my_navbar())
+    page.add(d.Text('Sign In'))
     return page
 
 def sign_up_page() -> Component:
-    page = d.Page(title='Sign In')
+    page = d.Page(title='Sign Up')
     page.add(navbar := my_navbar())
+    page.add(d.Text('Sign Up'))
     return page
 
 g.route('/', root_page())

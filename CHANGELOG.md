@@ -4,7 +4,7 @@
 
 Added:
     - Component: `add_class`, `remove_class`, `has_class` methods.
-    - DaisyUI: Artboard, Divider, Footer, FooterTitle components.
+    - DaisyUI: NavbarButton, Artboard, Divider, Footer, FooterTitle components.
     - HTML5: A, Footer, Nav, Header.
 
 Changed:
