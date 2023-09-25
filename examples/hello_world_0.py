@@ -15,7 +15,7 @@ async def world_button_click(button: Component, event: Event):
     world_text.content = f'World {randint(0, 100)}'
 
 # page
-page = d.Page(title='Hello world 0', class_='p-10')
+page = d.Page(title='Hello world 0').add_class('p-10')
 page.add(vflex := d.VFlex())
 
 # top cards
@@ -28,9 +28,9 @@ card.add(world_text := d.Text('World'))
 # buttons
 vflex.add(hflex := d.Flex())
 hflex.add(join := d.Join())
-join.add(button := d.Button(class_='btn btn-primary', onclick=hello_button_click))
+join.add(button := d.Button(onclick=hello_button_click).add_class('btn-primary'))
 button.add(text := d.Text('Hello'))
-join.add(button := d.Button(class_='btn btn-success', onclick=world_button_click))
+join.add(button := d.Button(onclick=world_button_click).add_class('btn-secondary'))
 button.add(text := d.Text('World'))
 
 # router

@@ -62,8 +62,23 @@ class Component:
         self.children = []
 
     def add_class(self, class_: str) -> Self:
-        self.attrs['class'] += ' ' + class_
+        component_class = self.attrs.get('class', '')
+        class_ = component_class + ' ' + class_
+        class_ = class_.strip()
+        self.attrs['class'] = class_
         return self
+
+    def remove_class(self, class_: str) -> Self:
+        class_ = class_.strip()
+        component_class = self.attrs.get('class', '')
+        component_classes = [n for n in component_class.split() if n != class_]
+        class_ = ' '.join(component_classes)
+        self.attrs['class'] = class_
+        return self
+
+    def has_class(self, class_: str) -> bool:
+        class_ = class_.strip()
+        return class_ in self.attrs.get('class', '')
 
     def add(self, child: Union['Component', str]) -> Self:
         # FIXME:

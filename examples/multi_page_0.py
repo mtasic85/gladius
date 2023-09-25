@@ -30,7 +30,7 @@ def root_page() -> Component:
     page.add(navbar := my_navbar())
 
     # join buttons
-    page.add(flex := d.Flex())
+    page.add(flex := d.Flex().add_class('gap-2'))
     flex.add(join := my_join())
     return page
 
@@ -39,9 +39,9 @@ def dashboard_page() -> Component:
     page.add(navbar := my_navbar())
     
     # vflex - Hello World
-    page.add(vflex := d.VFlex())
+    page.add(vflex := d.VFlex().add_class('gap-2'))
     vflex.add(card := d.Card().add(d.Text('Hello')))
-    vflex.add(flex := d.Flex())
+    vflex.add(flex := d.Flex().add_class('gap-2'))
     flex.add(card := d.Card().add(d.Text('World')))
     flex.add(card := d.Card().add(d.Text('!')))
     

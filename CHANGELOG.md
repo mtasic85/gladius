@@ -3,6 +3,7 @@
 ## v0.1.3
 
 Added:
+    - Component: `add_class`, `remove_class`, `has_class` methods.
     - DaisyUI: Artboard, Divider, Footer, FooterTitle components.
     - HTML5: A, Footer, Nav, Header.
 
@@ -12,6 +13,7 @@ Changed:
     - Rename attr `sf_id` to be `sf-id`.
     - Renamed `EventRequest` to `Event`.
     - Updated DaisyUI from `2.6.0` to `3.7.7`.
+    - DaisyUI: `Join` component adds default class `join-item` to its children.
 
 Fixed:
     - Component registration of ComponentLibrary's sub-classes.

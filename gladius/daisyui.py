@@ -13,6 +13,8 @@ __all__ = [
     'DaisyUI',
 ]
 
+from typing import Self
+
 from .gladius import Gladius, Event
 from .component import Component, ComponentLibrary
 from . import html5
@@ -89,20 +91,26 @@ class Link(html5.A):
     default_class: str = 'link'
 
 class Flex(html5.Div):
-    # default_class: str = 'flex w-full gap-1'
-    default_class: str = 'flex w-full'
+    default_class: str = 'flex w-full gap-1'
 
-class VFlex(html5.Div):
-    # default_class: str = 'flex flex-col w-full gap-1'
-    default_class: str = 'flex flex-col w-full'
+class VFlex(Flex):
+    default_class: str = 'flex flex-col w-full gap-1'
 
 class Card(html5.Div):
-    default_class: str = 'grid h-20 flex-grow card bg-base-300 rounded-box place-items-center'
+    default_class: str = 'card grid h-20 flex-grow bg-base-300 rounded-box place-items-center'
 
 class Join(html5.Div):
     default_class: str = 'join'
 
-class VJoin(html5.Div):
+    def add(self, child: Component) -> Self:
+        if not child.has_class('join-item'):
+            child.add_class('join-item')
+
+
+        self.children.append(child)
+        return self
+
+class VJoin(Join):
     default_class: str = 'join join-vertical'
 
 class Button(Component):
