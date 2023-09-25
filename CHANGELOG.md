@@ -3,11 +3,19 @@
 ## v0.1.4
 
 Added:
-    - HTML5: H1, H2, H3, H4, P, BlockQuote, Figure, FigCaption, Strong, Em, Code
-    - HTML5: Pre, Ol, Ul, Li, Table, THead, Tr, Th, Td, Img, Video, Source, Hr
+    - Component: Added `TextContentComponent` for components that have text content in constructor.
+    - HTML5: H1, H2, H3, H4, P, BlockQuote, Figure, FigCaption, Strong, Em, Code.
+    - HTML5: Pre, Ol, Ul, Li, Table, THead, Tr, Th, Td, Img, Video, Source, Hr.
+    - HTML5: Button.
+    - DaisyUI: Hero, HeroContent.
+    - Examples: Layout.
 
 Changed:
-    - Tailwind Plugins: forms, typography, aspect-ratio, line-clamp
+    - Tailwind Plugins: forms, typography, aspect-ratio, line-clamp.
+    - DaisyUI: Button, support for text label in constructor.
+
+Removed:
+    - Examples: Artboard, Divider, Footer.
 
 ## v0.1.3
 

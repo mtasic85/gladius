@@ -115,18 +115,8 @@ class VJoin(Join):
     # NOTE: extended component
     default_class: str = 'join join-vertical'
 
-class Button(Component):
+class Button(html5.Button):
     default_class: str = 'btn'
-
-    def __init__(self, component_library: ComponentLibrary, **kwargs):
-        super().__init__(component_library, **kwargs)
-
-    def render(self) -> str:
-        return f'''
-            <button {self.render_attrs()}>
-                {self.render_children()}
-            </button>
-        '''
 
 class Table(Component):
     header: list[str]
@@ -206,7 +196,14 @@ class Footer(html5.Footer):
     default_class: str = 'footer'
 
 class FooterTitle(html5.Header):
+    # NOTE: extended component
     default_class: str = 'footer-title'
+
+class Hero(html5.Div):
+    default_class: str = 'hero bg-base-200'
+
+class HeroContent(html5.Div):
+    default_class: str = 'hero-content'
 
 #
 # DaisyUI Component Library

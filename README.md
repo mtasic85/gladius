@@ -80,14 +80,9 @@ source venv/bin/activate
 pip install
 ```
 
-Hello world:
-
 ```bash
 gunicorn examples.hello_world_0:app --reload --bind '0.0.0.0:5000' --worker-class aiohttp.GunicornWebWorker
-```
-
-Multi-page:
-
-```bash
+gunicorn examples.hello_world_1:app --reload --bind '0.0.0.0:5000' --worker-class aiohttp.GunicornWebWorker
 gunicorn examples.multi_page_0:app --reload --bind '0.0.0.0:5000' --worker-class aiohttp.GunicornWebWorker
+gunicorn examples.daisyui_layout_0:app --reload --bind '0.0.0.0:5000' --worker-class aiohttp.GunicornWebWorker
 ```

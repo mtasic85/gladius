@@ -167,6 +167,9 @@ class Hr(Component):
     default_tag: str = 'hr'
     void_element: bool = True
 
+class Button(TextContentComponent):
+    default_tag: str = 'button'
+
 class Html5(ComponentLibrary):
     def __init__(self, ctx: Gladius):
         super().__init__(ctx)
