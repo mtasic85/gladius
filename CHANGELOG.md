@@ -2,12 +2,10 @@
 
 ## v0.1.3
 
-Todo:
-    - Fix: Text element should standalone string, but not span element.
-
 Changed:
     - Examples, rename `dui` to `d`.
     - Rename `prop{s}` to `attr{s}` because of HTML convention.
+    - Rename attr `sf_id` to be `sf-id`.
 
 Fixed:
     - Component registration of ComponentLibrary's sub-classes.

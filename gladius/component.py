@@ -55,7 +55,7 @@ class Component:
             self.attrs['id'] = id_
 
         # FIXME: requires sf_session
-        self.attrs['sf_id'] = str(uuid4())
+        self.attrs['sf-id'] = str(uuid4())
         self.attrs.update(attrs)
 
         # children
@@ -84,7 +84,7 @@ class Component:
 
         if not k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
             # standard events
-            sf_id: str = self.attrs['sf_id']
+            sf_id: str = self.attrs['sf-id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
             attr = ' '.join([
@@ -97,14 +97,14 @@ class Component:
             self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
         elif k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
             # custom events
-            sf_id: str = self.attrs['sf_id']
+            sf_id: str = self.attrs['sf-id']
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
             attr = ' '.join([
                 'hx-trigger="multi-path-deps"',
                 f'hx-get="/api/1.0/_event/{event_type}/{sf_id}"',
                 'multi-path-deps=\'["/api/1.0/_event"]\'',
-                f'hx-target=\'[sf_id="{sf_id}"]\'',
+                f'hx-target=\'[sf-id="{sf_id}"]\'',
                 'hx-swap="outerHTML"',
             ])
 

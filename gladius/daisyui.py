@@ -172,7 +172,6 @@ class Text(Component):
         self.attrs[event_type] = _ontextchange
 
     def render(self) -> str:
-        # FIXME: span element is unnecessary, but it is workaorund
         return f'''
             <span {self.render_attrs()}>
                 {self.content}
