@@ -7,6 +7,10 @@ Added:
     - HTML5: High-level `Page` component.
     - Example: `hello_world_2.py`.
 
+Fixed:
+    - Component: do not attach `htmx` attributes for:
+        html, head, meta, title, link, script, body, button, a, input, textarea
+
 ## v0.1.5
 
 Changed:

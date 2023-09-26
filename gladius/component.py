@@ -64,7 +64,7 @@ class Component:
         self.children = []
 
         # content change
-        if self.default_tag not in ('button', 'a', 'input', 'textarea'):
+        if self.default_tag not in ('html', 'head', 'meta', 'title', 'link', 'script', 'body', 'button', 'a', 'input', 'textarea'):
             async def _oncontentchange(content: str, event: Event):
                 # print('_oncontentchange', content, event)
                 pass
