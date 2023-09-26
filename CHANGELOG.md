@@ -2,7 +2,10 @@
 
 ## v0.1.6
 
-...
+Added:
+    - HTML5: `set_attr`, `set_attr`, `del_attr`, `has_attr` methods.
+    - HTML5: High-level `Page` component.
+    - Example: `hello_world_2.py`.
 
 ## v0.1.5
 

@@ -43,6 +43,34 @@ __all__ = [
 from .gladius import Gladius
 from .component import Component, ComponentLibrary
 
+class Page(Component):
+    # high-level component
+    default_tag: str = 'html'
+    html = 'Html'
+    head = 'Head'
+    body = 'Body'
+
+    def __init__(self, component_library: 'ComponentLibrary', **kwargs):
+        super().__init__(component_library, **kwargs)
+        html5: ComponentLibrary = component_library
+
+        # html
+        html = html5.Html()
+        self.html = html
+        
+        # head
+        html.add(head := html5.Head())
+        head.add(meta := html5.Meta(charset='utf-8'))
+        head.add(meta := html5.Meta(name='viewport', content='width=device-width'))
+        self.head = head
+
+        # body
+        html.add(body := html5.Body())
+        self.body = body
+
+    def render(self) -> str:
+        return self.html.render()
+
 class Html(Component):
     default_tag: str = 'html'
     default_attrs: dict = {'lang': 'en-US'}

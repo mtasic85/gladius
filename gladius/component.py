@@ -5,7 +5,7 @@ __all__ = [
 
 import json
 from uuid import uuid4
-from typing import Union, Self
+from typing import Union, Self, Any
 
 from .consts import EVENT_HANDLER_EVENT_TYPE_MAP
 from .gladius import Gladius, Event
@@ -72,6 +72,25 @@ class Component:
             event_type: str = '_oncontentchange'
             self.attrs[event_type] = _oncontentchange
 
+    def set_attr(self, **kwargs) -> Self:
+        attrs = {
+            k.replace('_', '-'): v
+            for k, v in kwargs.items()
+            if k not in ('class', 'class_', 'id', 'id_')
+        }
+
+        self.attrs.update(attrs)
+        return self
+
+    def get_attr(self, attr: str) -> Any:
+        return self.attrs[attr]
+
+    def del_attr(self, attr: str):
+        del self.attrs[attr]
+
+    def has_attr(self, attr: str) -> bool:
+        return attr in self.attrs
+
     def add_class(self, class_: str) -> Self:
         component_class = self.attrs.get('class', '')
         class_ = component_class + ' ' + class_
@@ -91,11 +110,7 @@ class Component:
         class_ = class_.strip()
         return class_ in self.attrs.get('class', '')
 
-    def add(self, child: Union['Component', str]) -> Self:
-        # FIXME:
-        # if isinstance(child, str):
-        #     child = h.Text(component_library=self.component_library, content=child)
-
+    def add(self, child: 'Component') -> Self:
         self.children.append(child)
         return self
 
