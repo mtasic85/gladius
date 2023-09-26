@@ -7,9 +7,16 @@ Added:
     - HTML5: High-level `Page` component.
     - Example: `hello_world_2.py`.
 
+Changed:
+    - DaisyUI: `Page` extends `html5.Page`.
+
 Fixed:
     - Component: do not attach `htmx` attributes for:
         html, head, meta, title, link, script, body, button, a, input, textarea
+    - DaisyUI: `NavbarButton` extends `html5.A`.
+    - DaisyUI: `Text` extends `html5.Span`.
+    - Html5: `hx-boots` on body.
+    - DaisyUI: `ht-target` attr added on `Navbar` and `Join` children.
 
 ## v0.1.5
 

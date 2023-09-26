@@ -7,19 +7,21 @@ g = Gladius()
 d = DaisyUI(g)
 
 def my_navbar() -> Component:
-    navbar = d.Navbar(hx_boost='true')
-    navbar.add(a := d.NavbarButton(href='/').add(d.Text('Home')))
-    navbar.add(a := d.NavbarButton(href='/dashboard').add(d.Text('Dashboard')))
-    navbar.add(a := d.NavbarButton(href='/signin').add(d.Text('Sign In')))
-    navbar.add(a := d.NavbarButton(href='/signup').add(d.Text('Sign Up')))
+    # navbar = d.Navbar(hx_boost='true')
+    navbar = d.Navbar()
+    navbar.add(a := d.NavbarButton('Home', href='/'))
+    navbar.add(a := d.NavbarButton('Dashboard', href='/dashboard'))
+    navbar.add(a := d.NavbarButton('Sign In', href='/signin'))
+    navbar.add(a := d.NavbarButton('Sign Up', href='/signup'))
     return navbar
 
 def my_join() -> Component:
-    join = d.Join(hx_boost='true')
-    join.add(a := d.Link(class_='btn join-item', href='/').add(d.Text('Home')))
-    join.add(a := d.Link(class_='btn join-item', href='/dashboard').add(d.Text('Dashboard')))
-    join.add(a := d.Link(class_='btn join-item', href='/signin').add(d.Text('Sign In')))
-    join.add(a := d.Link(class_='btn join-item', href='/signup').add(d.Text('Sign Up')))
+    # join = d.Join(hx_boost='true')
+    join = d.Join()
+    join.add(a := d.Link('Home', class_='btn join-item', href='/'))
+    join.add(a := d.Link('Dashboard', class_='btn join-item', href='/dashboard'))
+    join.add(a := d.Link('Sign In', class_='btn join-item', href='/signin'))
+    join.add(a := d.Link('Sign Up', class_='btn join-item', href='/signup'))
     return join
 
 def root_page() -> Component:
@@ -40,10 +42,10 @@ def dashboard_page() -> Component:
     
     # vflex - Hello World
     page.add(vflex := d.VFlex().add_class('gap-2'))
-    vflex.add(card := d.Card().add(d.Text('Hello')))
+    vflex.add(card := d.Card('Hello'))
     vflex.add(flex := d.Flex().add_class('gap-2'))
-    flex.add(card := d.Card().add(d.Text('World')))
-    flex.add(card := d.Card().add(d.Text('!')))
+    flex.add(card := d.Card('World'))
+    flex.add(card := d.Card('!'))
     
     async def add_button_click(button, event: Event):
         row = [randint(0, 10) for i in range(3)]
@@ -58,9 +60,9 @@ def dashboard_page() -> Component:
     
     # join button
     vflex.add(join := d.Join())
-    join.add(add_button := d.Button(onclick=add_button_click).add(d.Text('Add')))
-    join.add(edit_button := d.Button(class_='btn btn-secondary').add(d.Text('Edit')))
-    join.add(remove_button := d.Button(onclick=remove_button_click, class_='btn btn-primary').add(d.Text('Remove')))
+    join.add(add_button := d.Button('Add', onclick=add_button_click))
+    join.add(edit_button := d.Button('Edit', class_='btn btn-secondary'))
+    join.add(remove_button := d.Button('Remove', onclick=remove_button_click, class_='btn btn-primary'))
 
     # table_0
     header = ['A', 'B', 'C']

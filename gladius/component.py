@@ -64,7 +64,10 @@ class Component:
         self.children = []
 
         # content change
-        if self.default_tag not in ('html', 'head', 'meta', 'title', 'link', 'script', 'body', 'button', 'a', 'input', 'textarea'):
+        disallowed_tags = ('html', 'head', 'meta', 'title', 'link', 'script', 'body', 'button', 'a', 'input', 'textarea')
+        
+        # if self.get_attr('hx-boost') not in ('true', True) or self.default_tag not in disallowed_tags:
+        if self.default_tag not in disallowed_tags:
             async def _oncontentchange(content: str, event: Event):
                 # print('_oncontentchange', content, event)
                 pass
@@ -82,8 +85,8 @@ class Component:
         self.attrs.update(attrs)
         return self
 
-    def get_attr(self, attr: str) -> Any:
-        return self.attrs[attr]
+    def get_attr(self, attr: str, default_value: str|None=None) -> Any:
+        return self.attrs.get(attr, default_value)
 
     def del_attr(self, attr: str):
         del self.attrs[attr]

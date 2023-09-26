@@ -8,6 +8,9 @@ g = Gladius()
 h = Html5(g)
 d = DaisyUI(g)
 
+#
+# page
+#
 page = d.Page(title='daisyui layout')
 page.add(main_flex := d.VFlex(class_='p-10 space-y-10 prose'))
 main_flex.add(h.H1('Layout'))
@@ -28,21 +31,21 @@ main_flex.add(h.H2('Divider'))
 
 # vertical divider
 main_flex.add(flex := d.VFlex())
-flex.add(div := h.Div(class_='grid h-20 card bg-base-300 rounded-box place-items-center').add(d.Text('content')))
+flex.add(div := h.Div('content', class_='grid h-20 card bg-base-300 rounded-box place-items-center'))
 flex.add(divider := d.Divider().add(d.Text('OR')))
-flex.add(div := h.Div(class_='grid h-20 card bg-base-300 rounded-box place-items-center').add(d.Text('content')))
+flex.add(div := h.Div('content', class_='grid h-20 card bg-base-300 rounded-box place-items-center'))
 
 # horizontal divider
 main_flex.add(flex := d.Flex())
-flex.add(div := h.Div(class_='grid h-20 flex-grow card bg-base-300 rounded-box place-items-center').add(d.Text('content')))
+flex.add(div := h.Div('content', class_='grid h-20 flex-grow card bg-base-300 rounded-box place-items-center'))
 flex.add(divider := d.Divider().add_class('divider-horizontal'))
-flex.add(div := h.Div(class_='grid h-20 flex-grow card bg-base-300 rounded-box place-items-center').add(d.Text('content')))
+flex.add(div := h.Div('content', class_='grid h-20 flex-grow card bg-base-300 rounded-box place-items-center'))
 
 # lg horizontal divider
 main_flex.add(flex := d.Flex().add_class('flex-col lg:flex-row'))
-flex.add(div := h.Div(class_='grid flex-grow h-32 card bg-base-300 rounded-box place-items-center').add(d.Text('content')))
+flex.add(div := h.Div('content', class_='grid flex-grow h-32 card bg-base-300 rounded-box place-items-center'))
 flex.add(divider := d.Divider().add_class('lg:divider-horizontal').add(d.Text('OR')))
-flex.add(div := h.Div(class_='grid flex-grow h-32 card bg-base-300 rounded-box place-items-center').add(d.Text('content')))
+flex.add(div := h.Div('content', class_='grid flex-grow h-32 card bg-base-300 rounded-box place-items-center'))
 
 #
 # footer
@@ -53,24 +56,24 @@ main_flex.add(h.H2('Footer'))
 main_flex.add(footer := d.Footer().add_class('p-10 bg-neutral text-neutral-content'))
 
 footer.add(nav := h.Nav())
-nav.add(footer_title := d.FooterTitle().add(d.Text('Services')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Branding')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Design')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Marketing')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Advertisement')))
+nav.add(footer_title := d.FooterTitle('Services'))
+nav.add(link := d.Link('Branding').add_class('link-hover'))
+nav.add(link := d.Link('Design').add_class('link-hover'))
+nav.add(link := d.Link('Marketing').add_class('link-hover'))
+nav.add(link := d.Link('Advertisement').add_class('link-hover'))
 
 footer.add(nav := h.Nav())
-nav.add(footer_title := d.FooterTitle().add(d.Text('Company')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('About us')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Contact')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Jobs')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Press kit')))
+nav.add(footer_title := d.FooterTitle('Company'))
+nav.add(link := d.Link('About us').add_class('link-hover'))
+nav.add(link := d.Link('Contact').add_class('link-hover'))
+nav.add(link := d.Link('Jobs').add_class('link-hover'))
+nav.add(link := d.Link('Press kit').add_class('link-hover'))
 
 footer.add(nav := h.Nav())
-nav.add(footer_title := d.FooterTitle().add(d.Text('Legal')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Terms of use')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Privacy policy')))
-nav.add(link := d.Link().add_class('link-hover').add(d.Text('Cookie policy')))
+nav.add(footer_title := d.FooterTitle('Legal'))
+nav.add(link := d.Link('Terms of use').add_class('link-hover'))
+nav.add(link := d.Link('Privacy policy').add_class('link-hover'))
+nav.add(link := d.Link('Cookie policy').add_class('link-hover'))
 
 #
 # hero

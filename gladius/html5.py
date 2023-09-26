@@ -1,4 +1,5 @@
 __all__ = [
+    'Page',
     'Html',
     'Head',
     'Meta',
@@ -40,33 +41,45 @@ __all__ = [
     'Html5',
 ]
 
+from typing import Self
+
 from .gladius import Gladius
 from .component import Component, ComponentLibrary
 
 class Page(Component):
-    # high-level component
+    # NOTE: high-level component
     default_tag: str = 'html'
-    html = 'Html'
-    head = 'Head'
-    body = 'Body'
+    title: str
+    favicon: str
+    html: 'Html'
+    head: 'Head'
+    body: 'Body'
 
-    def __init__(self, component_library: 'ComponentLibrary', **kwargs):
+    def __init__(self, component_library: 'ComponentLibrary', title: str='Gladius', favicon: str='/static/gladius/favicon.png', **kwargs):
         super().__init__(component_library, **kwargs)
-        html5: ComponentLibrary = component_library
+        self.title = title
+        self.favicon = favicon
+        h: ComponentLibrary = Html5(component_library.ctx)
 
         # html
-        html = html5.Html()
+        html = h.Html()
         self.html = html
         
         # head
-        html.add(head := html5.Head())
-        head.add(meta := html5.Meta(charset='utf-8'))
-        head.add(meta := html5.Meta(name='viewport', content='width=device-width'))
+        html.add(head := h.Head())
+        head.add(meta := h.Meta(charset='utf-8'))
+        head.add(meta := h.Meta(name='viewport', content='width=device-width'))
+        head.add(title := h.Title(content=self.title))
+        head.add(link := h.Link(rel='shortcut icon', type='image/png', href=self.favicon))
         self.head = head
 
         # body
-        html.add(body := html5.Body())
+        html.add(body := h.Body())
         self.body = body
+
+    def add(self, child: 'Component') -> Self:
+        self.body.children.append(child)
+        return self
 
     def render(self) -> str:
         return self.html.render()

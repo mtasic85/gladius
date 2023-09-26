@@ -31,50 +31,32 @@ from .gladius import Gladius, Event
 from .component import Component, ComponentLibrary
 from . import html5
 
-class Page(Component):
+class Page(html5.Page):
+    # NOTE: high-level component
     default_class: str = 'container mx-auto'
-    title: str
 
-    def __init__(self, *args, title: str='Gladius', favicon: str='/static/gladius/favicon.png', **kwargs):
-        super().__init__(*args, **kwargs)
-        self.title = title
-        self.favicon = favicon
+    def __init__(self, component_library: ComponentLibrary, **kwargs):
+        super().__init__(component_library, **kwargs)
+        h: ComponentLibrary = html5.Html5(component_library.ctx)
+        self.head.add(link := h.Link(href='https://cdn.jsdelivr.net/npm/daisyui@3.7.7/dist/full.css', rel='stylesheet', type='text/css'))
+        self.head.add(script := h.Script(src='https://cdn.tailwindcss.com'))
+        self.head.add(script := h.Script(src='https://unpkg.com/htmx.org@1.9.6'))
+        self.head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
+        self.head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/json-enc.js'))
+        self.head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/event-header.js'))
+        self.head.add(script := h.Script(src='/static/gladius/multi-path-deps.js'))
+        self.body.set_attr(hx_ext='multi-path-deps', hx_boost="true")
 
     def render(self) -> str:
-        rendered_children = '\n'.join(c.render() for c in self.children)
-
-        return f'''
-            <!doctype html>
-            <html lang="en-US">
-                <head>
-                    <meta charset="utf-8" />
-                    <meta name="viewport" content="width=device-width" />
-                    <link rel="shortcut icon" type="image/png" href="{self.favicon}" />
-                    <title>{self.title}</title>
-
-                    <!-- daisyui -->
-                    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.7/dist/full.css" rel="stylesheet" type="text/css" />
-
-                    <!-- tailwind -->
-                    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
-
-                    <!-- htmx -->
-                    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
-                    <script src="https://unpkg.com/htmx.org/dist/ext/debug.js"></script>
-                    <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
-                    <script src="https://unpkg.com/htmx.org/dist/ext/event-header.js"></script>
-                    <script src="/static/gladius/multi-path-deps.js"></script>
-                </head>
-                <body hx-ext='multi-path-deps'>
-                    <div {self.render_attrs()}>
-                        {rendered_children}
-                    </div>
-                </body>
-            </html>
-        '''
+        return self.html.render()
 
 class Navbar(Component):
     default_class: str = 'navbar bg-base-100'
+
+    def add(self, child: Component) -> Self:
+        child.set_attr(hx_target='body')
+        self.children.append(child)
+        return self
 
     def render(self) -> str:
         rendered_children = '\n'.join(c.render() for c in self.children)
@@ -85,18 +67,9 @@ class Navbar(Component):
             </div>
         '''
 
-class NavbarButton(Component):
+class NavbarButton(html5.A):
     # NOTE: extended component
     default_class: str = 'btn btn-ghost normal-case text-xl'
-
-    def render(self) -> str:
-        rendered_children = '\n'.join(c.render() for c in self.children)
-
-        return f'''
-            <a {self.render_attrs()}>
-                {rendered_children}
-            </a>
-        '''
 
 class Link(html5.A):
     default_class: str = 'link'
@@ -117,8 +90,8 @@ class Join(html5.Div):
     def add(self, child: Component) -> Self:
         if not child.has_class('join-item'):
             child.add_class('join-item')
-
-
+        
+        child.set_attr(hx_target='body')
         self.children.append(child)
         return self
 
@@ -171,8 +144,8 @@ class Table(Component):
             </table>
         '''
 
-# FIXME:
-class Text(Component):
+class Text(html5.Span):
+    # NOTE: extended component
     content: str
 
     def __init__(self, component_library: 'ComponentLibrary', content: str='', **kwargs):
@@ -185,13 +158,6 @@ class Text(Component):
 
         event_type: str = '_ontextchange'
         self.attrs[event_type] = _ontextchange
-
-    def render(self) -> str:
-        return f'''
-            <span {self.render_attrs()}>
-                {self.content}
-            </span>
-        '''
 
 #
 # Layout

@@ -20,11 +20,11 @@ async def world_button_click(button: Component, event: Event):
     world_button.content = f'World {v}'
 
 page = html5.Page()
-page.head.add(link := html5.Link(rel='shortcut icon', type='image/png', href='/static/gladius/favicon.png'))
 page.head.add(title := html5.Title(content='Hello world 1'))
+page.head.add(link := html5.Link(rel='shortcut icon', type='image/png', href='/static/gladius/favicon.png'))
 page.head.add(link := html5.Link(href='https://cdn.jsdelivr.net/npm/daisyui@3.7.7/dist/full.css', rel='stylesheet', type='text/css'))
 page.head.add(script := html5.Script(src='https://cdn.tailwindcss.com'))
-page.head.add(script := html5.Script(src='https://unpkg.com/htmx.org@1.9.5'))
+page.head.add(script := html5.Script(src='https://unpkg.com/htmx.org@1.9.6'))
 page.head.add(script := html5.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
 page.head.add(script := html5.Script(src='https://unpkg.com/htmx.org/dist/ext/json-enc.js'))
 page.head.add(script := html5.Script(src='https://unpkg.com/htmx.org/dist/ext/event-header.js'))
