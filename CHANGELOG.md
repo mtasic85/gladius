@@ -1,12 +1,5 @@
 # CHANGELOG
 
-## TODO:
-* Rename `sf_id` to `g_id`.
-* Rename `sf_session_id` to `g_session_id`.
-* Rename `SF-Session-ID` to `G-Session-ID`.
-* Rename `default_tag` to `tag`.
-* 
-
 ## v0.1.8
 
 Added:
@@ -18,6 +11,10 @@ Changed:
 * Gladius: Redefined `Event` to allow future definition of `Web Event`.
 * DaisyUI: `Navbar` based on `html5.Div`, with custom `add` method.
 * Html5: Swap only body on any event and optimize DOM update using `idiomorph`.
+* Html5: Rename `sf_id` to `g_id`.
+* Html5: Rename `sf_session_id` to `g_session_id`.
+* Html5: Rename `SF-Session-ID` to `G-Session-ID`.
+* HTML5, DaisyUI: Rename `default_tag` to `tag`.
 
 Removed:
 * consts: `_ontextchanged`, `_ontablechanged`.

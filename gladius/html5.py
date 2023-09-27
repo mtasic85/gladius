@@ -49,7 +49,7 @@ from .component import Component, ComponentLibrary
 
 class Page(Component):
     # NOTE: high-level component
-    default_tag: str = 'html'
+    tag: str = 'html'
     title: str
     favicon: str
     html: 'Html'
@@ -89,42 +89,42 @@ class Page(Component):
         return self
 
     def render(self) -> str:
-        # create new sf_session_id for each GET request
-        sf_session_id = str(uuid4())
-        self.html.set_attr(sf_session_id=sf_session_id)
+        # create new g_session_id for each GET request
+        g_session_id = str(uuid4())
+        self.html.set_attr(g_session_id=g_session_id)
         return self.html.render()
 
 class Html(Component):
-    default_tag: str = 'html'
+    tag: str = 'html'
     default_attrs: dict = {'lang': 'en-US'}
 
     def render(self) -> str:
         return f'''
             <!doctype html>
-            <{self.default_tag} {self.render_attrs()}>
+            <{self.tag} {self.render_attrs()}>
                 {self.render_children()}
-            </{self.default_tag}>
+            </{self.tag}>
         '''
 
 class Head(Component):
-    default_tag: str = 'head'
+    tag: str = 'head'
 
 class Meta(Component):
-    default_tag: str = 'meta'
+    tag: str = 'meta'
     void_element: bool = True
 
 class Link(Component):
-    default_tag: str = 'link'
+    tag: str = 'link'
     void_element: bool = True
 
 class Title(Component):
-    default_tag: str = 'title'
+    tag: str = 'title'
 
 class Script(Component):
-    default_tag: str = 'script'
+    tag: str = 'script'
 
 class Body(Component):
-    default_tag: str = 'body'
+    tag: str = 'body'
 
     def __init__(self, component_library: 'ComponentLibrary', **kwargs):
         super().__init__(component_library, **kwargs)
@@ -138,100 +138,100 @@ class Body(Component):
         self.attrs[event_type] = _oncontentchange
 
 class Div(Component):
-    default_tag: str = 'div'
+    tag: str = 'div'
 
 class Span(Component):
-    default_tag: str = 'span'
+    tag: str = 'span'
 
 class Footer(Component):
-    default_tag: str = 'footer'
+    tag: str = 'footer'
 
 class Nav(Component):
-    default_tag: str = 'nav'
+    tag: str = 'nav'
 
 class Header(Component):
-    default_tag: str = 'header'
+    tag: str = 'header'
 
 class H1(Component):
-    default_tag: str = 'h1'
+    tag: str = 'h1'
 
 class H2(Component):
-    default_tag: str = 'h2'
+    tag: str = 'h2'
 
 class H3(Component):
-    default_tag: str = 'h3'
+    tag: str = 'h3'
 
 class H4(Component):
-    default_tag: str = 'h4'
+    tag: str = 'h4'
 
 class P(Component):
-    default_tag: str = 'p'
+    tag: str = 'p'
 
 class A(Component):
-    default_tag: str = 'a'
+    tag: str = 'a'
 
 class BlockQuote(Component):
-    default_tag: str = 'blockquote'
+    tag: str = 'blockquote'
 
 class Figure(Component):
-    default_tag: str = 'figure'
+    tag: str = 'figure'
 
 class FigCaption(Component):
-    default_tag: str = 'figcaption'
+    tag: str = 'figcaption'
 
 class Strong(Component):
-    default_tag: str = 'strong'
+    tag: str = 'strong'
 
 class Em(Component):
-    default_tag: str = 'em'
+    tag: str = 'em'
 
 class Code(Component):
-    default_tag: str = 'code'
+    tag: str = 'code'
 
 class Pre(Component):
-    default_tag: str = 'pre'
+    tag: str = 'pre'
 
 class Ol(Component):
-    default_tag: str = 'ol'
+    tag: str = 'ol'
 
 class Ul(Component):
-    default_tag: str = 'ul'
+    tag: str = 'ul'
 
 class Li(Component):
-    default_tag: str = 'li'
+    tag: str = 'li'
 
 class Table(Component):
-    default_tag: str = 'table'
+    tag: str = 'table'
 
 class THead(Component):
-    default_tag: str = 'thead'
+    tag: str = 'thead'
 
 class Tr(Component):
-    default_tag: str = 'tr'
+    tag: str = 'tr'
 
 class Th(Component):
-    default_tag: str = 'th'
+    tag: str = 'th'
 
 class Td(Component):
-    default_tag: str = 'td'
+    tag: str = 'td'
 
 class Img(Component):
-    default_tag: str = 'img'
+    tag: str = 'img'
     void_element: bool = True
 
 class Video(Component):
-    default_tag: str = 'video'
+    tag: str = 'video'
 
 class Source(Component):
-    default_tag: str = 'source'
+    tag: str = 'source'
     void_element: bool = True
 
 class Hr(Component):
-    default_tag: str = 'hr'
+    tag: str = 'hr'
     void_element: bool = True
 
 class Button(Component):
-    default_tag: str = 'button'
+    tag: str = 'button'
 
 class Html5(ComponentLibrary):
     def __init__(self, ctx: Gladius):

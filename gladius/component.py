@@ -16,7 +16,7 @@ class Component:
     attrs: dict
     content: str | None = None
     children: list['Component']
-    default_tag: str = 'div'
+    tag: str = 'div'
     default_class: str = ''
     default_attrs: dict[str, str] = {}
 
@@ -36,7 +36,7 @@ class Component:
         if 'class' not in attrs and 'class_' not in attrs:
             attrs['class'] = self.default_class
 
-        attrs['sf-id'] = str(uuid4())
+        attrs['g-id'] = str(uuid4())
         self.attrs = {}
         self.set_attr(**attrs)
 
@@ -118,7 +118,7 @@ class Component:
 
     def _render_attr(self, k, v):
         attr: str
-        sf_id: str = self.attrs['sf-id']
+        g_id: str = self.attrs['g-id']
 
         if not k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
             # standard events
@@ -126,27 +126,27 @@ class Component:
 
             attr = ' '.join([
                 f'hx-trigger="{event_type}"',
-                f'hx-post="/api/1.0/_event/{event_type}/{sf_id}"',
+                f'hx-post="/api/1.0/_event/{event_type}/{g_id}"',
                 'hx-ext="json-enc,event-header"',
                 'hx-swap="none"',
-                'hx-headers=\'js:{"SF-Session-ID": document.body.getAttribute("sf-session-id")}\'',
+                'hx-headers=\'js:{"G-Session-ID": document.body.getAttribute("g-session-id")}\'',
             ])
 
-            self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
+            self.component_library.ctx.callbacks[g_id][event_type] = [self, v]
         elif k.startswith('_') and k in EVENT_HANDLER_EVENT_TYPE_MAP and callable(v):
             # custom events
             event_type: str = EVENT_HANDLER_EVENT_TYPE_MAP[k]
 
             attr = ' '.join([
                 'hx-trigger="multi-path-deps"',
-                f'hx-get="/api/1.0/_event/{event_type}/{sf_id}"',
+                f'hx-get="/api/1.0/_event/{event_type}/{g_id}"',
                 'multi-path-deps=\'["/api/1.0/_event"]\'',
-                f'hx-target=\'[sf-id="{sf_id}"]\'',
+                f'hx-target=\'[g-id="{g_id}"]\'',
                 'hx-swap="outerHTML"',
-                'hx-headers=\'js:{"SF-Session-ID": document.documentElement.getAttribute("sf-session-id")}\'',
+                'hx-headers=\'js:{"G-Session-ID": document.documentElement.getAttribute("g-session-id")}\'',
             ])
 
-            self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
+            self.component_library.ctx.callbacks[g_id][event_type] = [self, v]
         else:
             # other attrs - non-event/non-callback attrs
             attr = f'{k}={self._render_value(k, v)}'
@@ -164,23 +164,23 @@ class Component:
     def render(self) -> str:
         if self.void_element:
             return f'''
-                <{self.default_tag} {self.render_attrs()} />
+                <{self.tag} {self.render_attrs()} />
             '''
         elif self.content:
             return f'''
-                <{self.default_tag} {self.render_attrs()}>
+                <{self.tag} {self.render_attrs()}>
                     {self.content}
-                </{self.default_tag}>
+                </{self.tag}>
             '''
         elif self.children:
             return f'''
-                <{self.default_tag} {self.render_attrs()}>
+                <{self.tag} {self.render_attrs()}>
                     {self.render_children()}
-                </{self.default_tag}>
+                </{self.tag}>
             '''
         else:
             return f'''
-                <{self.default_tag} {self.render_attrs()}></{self.default_tag}>
+                <{self.tag} {self.render_attrs()}></{self.tag}>
             '''
 
 class ComponentLibrary:

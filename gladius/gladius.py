@@ -31,7 +31,7 @@ class Event(TypedDict, total=False):
 
 class Gladius:
     app: web.Application
-    callbacks: dict[str, dict[str, tuple['Component', Callable]]] # {sf_id: {event_type: [component, func]}}
+    callbacks: dict[str, dict[str, tuple['Component', Callable]]] # {g_id: {event_type: [component, func]}}
     update_components: dict[str, list['Component']]
 
     def __init__(self):
@@ -71,9 +71,9 @@ class Gladius:
         
         self.app.add_routes([
             web.static('/static/gladius', os.path.join(os.path.split(__loader__.path)[0], 'static')),
-            web.get('/api/1.0/_event/{event_type}/{sf_id}', self.get_api_1_0__event),
-            web.get('/api/1.0/_event/{event_type}/{sf_session_id}/{sf_id}', self.get_api_1_0__session_event),
-            web.post('/api/1.0/_event/{event_type}/{sf_id}', self.post_api_1_0__event),
+            web.get('/api/1.0/_event/{event_type}/{g_id}', self.get_api_1_0__event),
+            web.get('/api/1.0/_event/{event_type}/{g_session_id}/{g_id}', self.get_api_1_0__session_event),
+            web.post('/api/1.0/_event/{event_type}/{g_id}', self.post_api_1_0__event),
         ])
 
         if os.path.exists('static'):
@@ -99,11 +99,11 @@ class Gladius:
 
     async def get_api_1_0__event(self, request: web.Request) -> web.Response:
         event_type: str = request.match_info['event_type']
-        sf_id: str = request.match_info['sf_id']
-        sf_session_id: str = request.headers['SF-Session-ID']
-        # print('get_api_1_0__event:', request, event_type, sf_id, sf_session_id)
+        g_id: str = request.match_info['g_id']
+        g_session_id: str = request.headers['G-Session-ID']
+        # print('get_api_1_0__event:', request, event_type, g_id, g_session_id)
         
-        component, callback = self.callbacks[sf_id][event_type]
+        component, callback = self.callbacks[g_id][event_type]
         await callback(component, {})
         
         res: str = component.render()
@@ -113,11 +113,11 @@ class Gladius:
 
     async def get_api_1_0__session_event(self, request: web.Request) -> web.Response:
         event_type: str = request.match_info['event_type']
-        sf_id: str = request.match_info['sf_id']
-        sf_session_id: str = request.match_info['sf_session_id']
-        # print('get_api_1_0__session_event:', request, event_type, sf_id, sf_session_id)
+        g_id: str = request.match_info['g_id']
+        g_session_id: str = request.match_info['g_session_id']
+        # print('get_api_1_0__session_event:', request, event_type, g_id, g_session_id)
         
-        component, callback = self.callbacks[sf_id][event_type]
+        component, callback = self.callbacks[g_id][event_type]
         await callback(component, {})
         
         res: str = component.render()
@@ -127,13 +127,13 @@ class Gladius:
 
     async def post_api_1_0__event(self, request: web.Request) -> web.Response:
         event_type: str = request.match_info['event_type']
-        sf_id: str = request.match_info['sf_id']
-        sf_session_id: str = request.headers['SF-Session-ID']
+        g_id: str = request.match_info['g_id']
+        g_session_id: str = request.headers['G-Session-ID']
         event: Event = request.headers['Triggering-Event']
-        # print('post_api_1_0__event:', request, event_type, sf_id, sf_session_id, event)
+        # print('post_api_1_0__event:', request, event_type, g_id, g_session_id, event)
 
-        # self.update_components[sf_session_id] = []
-        component, callback = self.callbacks[sf_id][event_type]
+        # self.update_components[g_session_id] = []
+        component, callback = self.callbacks[g_id][event_type]
         res: dict = await callback(component, event)
 
         # print('post_api_1_0__event:', res)
