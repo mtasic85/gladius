@@ -73,7 +73,7 @@ class Page(Component):
         head.add(title := h.Title(content=self.title))
         head.add(link := h.Link(rel='shortcut icon', type='image/png', href=self.favicon))
         head.add(script := h.Script(src='https://unpkg.com/htmx.org@1.9.6'))
-        head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
+        # head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
         head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/json-enc.js'))
         head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/event-header.js'))
         head.add(script := h.Script(src='https://unpkg.com/idiomorph/dist/idiomorph-ext.min.js'))
@@ -81,7 +81,7 @@ class Page(Component):
         self.head = head
 
         # body
-        html.add(body := h.Body(hx_ext='multi-path-deps,morph,debug', hx_boost='true', hx_swap='morph:innerHTML'))
+        html.add(body := h.Body(hx_ext='multi-path-deps,morph', hx_boost='true', hx_swap='morph:innerHTML'))
         self.body = body
 
     def add(self, child: 'Component') -> Self:

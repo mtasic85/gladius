@@ -15,6 +15,7 @@ Changed:
 * Html5: Rename `sf_session_id` to `g_session_id`.
 * Html5: Rename `SF-Session-ID` to `G-Session-ID`.
 * HTML5, DaisyUI: Rename `default_tag` to `tag`.
+* HTML5, DaisyUI: moved `htmx` scripts from DaisyUI to Html5.
 
 Removed:
 * consts: `_ontextchanged`, `_ontablechanged`.
