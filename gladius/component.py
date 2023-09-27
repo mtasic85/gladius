@@ -5,6 +5,7 @@ __all__ = [
 
 import json
 from uuid import uuid4
+from copy import copy, deepcopy
 from typing import Union, Self, Any
 
 from .consts import EVENT_HANDLER_EVENT_TYPE_MAP
@@ -30,34 +31,14 @@ class Component:
         self.component_library = component_library
         
         # attrs
-        if 'class' in kwargs:
-            class_ = kwargs['class']
-        elif 'class_' in kwargs:
-            class_ = kwargs['class_']
-        else:
-            class_ = self.default_class
+        attrs = {**kwargs}
 
-        id_ = ''
-        id_ += kwargs.get('id', '')
-        id_ += kwargs.get('id_', '')
+        if 'class' not in attrs and 'class_' not in attrs:
+            attrs['class'] = self.default_class
 
-        attrs = {
-            k.replace('_', '-'): v
-            for k, v in kwargs.items()
-            if k not in ('class', 'class_', 'id', 'id_')
-        }
-
-        self.attrs = {**self.default_attrs}
-        
-        if class_:
-            self.attrs['class'] = class_
-
-        if id_:
-            self.attrs['id'] = id_
-
-        # FIXME: requires sf_session
-        self.attrs['sf-id'] = str(uuid4())
-        self.attrs.update(attrs)
+        attrs['sf-id'] = str(uuid4())
+        self.attrs = {}
+        self.set_attr(**attrs)
 
         # children
         self.content = content
@@ -76,11 +57,24 @@ class Component:
             self.attrs[event_type] = _oncontentchange
 
     def set_attr(self, **kwargs) -> Self:
+        # replace _ with -
         attrs = {
             k.replace('_', '-'): v
             for k, v in kwargs.items()
             if k not in ('class', 'class_', 'id', 'id_')
         }
+
+        # class
+        if 'class' in kwargs:
+            attrs['class'] = kwargs['class']
+        elif 'class_' in kwargs:
+            attrs['class'] = kwargs['class_']
+
+        # id
+        if 'id' in kwargs:
+            attrs['id'] = kwargs['id']
+        elif 'id_' in kwargs:
+            attrs['id'] = kwargs['id_']
 
         self.attrs.update(attrs)
         return self
@@ -116,6 +110,20 @@ class Component:
     def add(self, child: 'Component') -> Self:
         self.children.append(child)
         return self
+
+    def remove(self, child: 'Component') -> Self:
+        self.children.remove(child)
+        return self
+
+    def clone(self, deep: bool=True) -> Self:
+        c: Self
+
+        if deep:
+            c = deepcopy(self)
+        else:
+            c = copy(self)
+
+        return c
 
     def _render_value(self, k, v) -> str:
         r: str

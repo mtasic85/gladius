@@ -38,7 +38,7 @@ class Page(html5.Page):
     def __init__(self, component_library: ComponentLibrary, **kwargs):
         super().__init__(component_library, **kwargs)
         h: ComponentLibrary = html5.Html5(component_library.ctx)
-        self.head.add(link := h.Link(href='https://cdn.jsdelivr.net/npm/daisyui@3.7.7/dist/full.css', rel='stylesheet', type='text/css'))
+        self.head.add(link := h.Link(href='https://cdn.jsdelivr.net/npm/daisyui@3.8.0/dist/full.css', rel='stylesheet', type='text/css'))
         self.head.add(script := h.Script(src='https://cdn.tailwindcss.com'))
         self.head.add(script := h.Script(src='https://unpkg.com/htmx.org@1.9.6'))
         self.head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
