@@ -41,6 +41,7 @@ __all__ = [
     'Html5',
 ]
 
+from uuid import uuid4
 from typing import Self
 
 from .gladius import Gladius
@@ -82,6 +83,9 @@ class Page(Component):
         return self
 
     def render(self) -> str:
+        # create new sf_session_id for each GET request
+        sf_session_id = str(uuid4())
+        self.html.set_attr(sf_session_id=sf_session_id)
         return self.html.render()
 
 class Html(Component):

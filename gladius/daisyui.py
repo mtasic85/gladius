@@ -47,25 +47,13 @@ class Page(html5.Page):
         self.head.add(script := h.Script(src='/static/gladius/multi-path-deps.js'))
         self.body.set_attr(hx_ext='multi-path-deps', hx_boost="true")
 
-    def render(self) -> str:
-        return self.html.render()
-
-class Navbar(Component):
+class Navbar(html5.Div):
     default_class: str = 'navbar bg-base-100'
 
     def add(self, child: Component) -> Self:
         child.set_attr(hx_target='body')
         self.children.append(child)
         return self
-
-    def render(self) -> str:
-        rendered_children = '\n'.join(c.render() for c in self.children)
-
-        return f'''
-            <div {self.render_attrs()}>
-                {rendered_children}
-            </div>
-        '''
 
 class NavbarButton(html5.A):
     # NOTE: extended component

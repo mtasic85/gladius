@@ -47,6 +47,7 @@ class Component:
         # content change
         disallowed_tags = ('html', 'head', 'meta', 'title', 'link', 'script', 'body', 'button', 'a', 'input', 'textarea')
         
+        # TODO: investigate code below
         # if self.get_attr('hx-boost') not in ('true', True) or self.default_tag not in disallowed_tags:
         if self.default_tag not in disallowed_tags:
             async def _oncontentchange(content: str, event: Event):
@@ -116,14 +117,7 @@ class Component:
         return self
 
     def clone(self, deep: bool=True) -> Self:
-        c: Self
-
-        if deep:
-            c = deepcopy(self)
-        else:
-            c = copy(self)
-
-        return c
+        return deepcopy(self) if deep else copy(self)
 
     def _render_value(self, k, v) -> str:
         r: str
@@ -148,6 +142,7 @@ class Component:
                 f'hx-post="/api/1.0/_event/{event_type}/{sf_id}"',
                 'hx-ext="json-enc,event-header"',
                 'hx-swap="none"',
+                'hx-headers=\'js:{"SF-Session-ID": document.body.getAttribute("sf-session-id")}\'',
             ])
 
             self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
@@ -161,6 +156,7 @@ class Component:
                 'multi-path-deps=\'["/api/1.0/_event"]\'',
                 f'hx-target=\'[sf-id="{sf_id}"]\'',
                 'hx-swap="outerHTML"',
+                'hx-headers=\'js:{"SF-Session-ID": document.documentElement.getAttribute("sf-session-id")}\'',
             ])
 
             self.component_library.ctx.callbacks[sf_id][event_type] = [self, v]
