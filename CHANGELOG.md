@@ -12,10 +12,15 @@
 Added:
 * Gladius: `SF-Session-ID` header.
 * Component: `sf-session-id` attr on `html` element.
+* Html5: use `idiomorph` library as the swapping mechanism in `htmx`.
 
 Changed:
 * Gladius: Redefined `Event` to allow future definition of `Web Event`.
 * DaisyUI: `Navbar` based on `html5.Div`, with custom `add` method.
+* Html5: Swap only body on any event and optimize DOM update using `idiomorph`.
+
+Removed:
+* consts: `_ontextchanged`, `_ontablechanged`.
 
 ## v0.1.7
 

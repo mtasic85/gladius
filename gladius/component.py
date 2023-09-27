@@ -44,19 +44,6 @@ class Component:
         self.content = content
         self.children = []
 
-        # content change
-        disallowed_tags = ('html', 'head', 'meta', 'title', 'link', 'script', 'body', 'button', 'a', 'input', 'textarea')
-        
-        # TODO: investigate code below
-        # if self.get_attr('hx-boost') not in ('true', True) or self.default_tag not in disallowed_tags:
-        if self.default_tag not in disallowed_tags:
-            async def _oncontentchange(content: str, event: Event):
-                # print('_oncontentchange', content, event)
-                pass
-
-            event_type: str = '_oncontentchange'
-            self.attrs[event_type] = _oncontentchange
-
     def set_attr(self, **kwargs) -> Self:
         # replace _ with -
         attrs = {

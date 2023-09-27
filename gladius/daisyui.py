@@ -40,12 +40,6 @@ class Page(html5.Page):
         h: ComponentLibrary = html5.Html5(component_library.ctx)
         self.head.add(link := h.Link(href='https://cdn.jsdelivr.net/npm/daisyui@3.8.0/dist/full.css', rel='stylesheet', type='text/css'))
         self.head.add(script := h.Script(src='https://cdn.tailwindcss.com'))
-        self.head.add(script := h.Script(src='https://unpkg.com/htmx.org@1.9.6'))
-        self.head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
-        self.head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/json-enc.js'))
-        self.head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/event-header.js'))
-        self.head.add(script := h.Script(src='/static/gladius/multi-path-deps.js'))
-        self.body.set_attr(hx_ext='multi-path-deps', hx_boost="true")
 
 class Navbar(html5.Div):
     default_class: str = 'navbar bg-base-100'
@@ -99,13 +93,6 @@ class Table(Component):
         self.header = header
         self.rows = rows
 
-        async def _ontablechange(table: Table, event: Event):
-            # print('_ontablechange', table, event)
-            pass
-
-        event_type: str = '_ontablechange'
-        self.attrs[event_type] = _ontablechange
-
     def render(self) -> str:
         rendered_header = '\n'.join([
             '<tr>',
@@ -134,18 +121,7 @@ class Table(Component):
 
 class Text(html5.Span):
     # NOTE: extended component
-    content: str
-
-    def __init__(self, component_library: 'ComponentLibrary', content: str='', **kwargs):
-        super().__init__(component_library, **kwargs)
-        self.content = content
-
-        async def _ontextchange(text: Text, event: Event):
-            # print('_ontextchange', text, event)
-            pass
-
-        event_type: str = '_ontextchange'
-        self.attrs[event_type] = _ontextchange
+    pass
 
 #
 # Layout

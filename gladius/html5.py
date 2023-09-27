@@ -44,7 +44,7 @@ __all__ = [
 from uuid import uuid4
 from typing import Self
 
-from .gladius import Gladius
+from .gladius import Gladius, Event
 from .component import Component, ComponentLibrary
 
 class Page(Component):
@@ -72,10 +72,16 @@ class Page(Component):
         head.add(meta := h.Meta(name='viewport', content='width=device-width'))
         head.add(title := h.Title(content=self.title))
         head.add(link := h.Link(rel='shortcut icon', type='image/png', href=self.favicon))
+        head.add(script := h.Script(src='https://unpkg.com/htmx.org@1.9.6'))
+        head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
+        head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/json-enc.js'))
+        head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/event-header.js'))
+        head.add(script := h.Script(src='https://unpkg.com/idiomorph/dist/idiomorph-ext.min.js'))
+        head.add(script := h.Script(src='/static/gladius/multi-path-deps.js'))
         self.head = head
 
         # body
-        html.add(body := h.Body())
+        html.add(body := h.Body(hx_ext='multi-path-deps,morph,debug', hx_boost='true', hx_swap='morph:innerHTML'))
         self.body = body
 
     def add(self, child: 'Component') -> Self:
@@ -119,6 +125,17 @@ class Script(Component):
 
 class Body(Component):
     default_tag: str = 'body'
+
+    def __init__(self, component_library: 'ComponentLibrary', **kwargs):
+        super().__init__(component_library, **kwargs)
+
+        # content change
+        async def _oncontentchange(content: str, event: Event):
+            # print('_oncontentchange', content, event)
+            pass
+
+        event_type: str = '_oncontentchange'
+        self.attrs[event_type] = _oncontentchange
 
 class Div(Component):
     default_tag: str = 'div'

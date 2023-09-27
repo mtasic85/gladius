@@ -101,7 +101,7 @@ class Gladius:
         event_type: str = request.match_info['event_type']
         sf_id: str = request.match_info['sf_id']
         sf_session_id: str = request.headers['SF-Session-ID']
-        print('get_api_1_0__event:', request, event_type, sf_id, sf_session_id)
+        # print('get_api_1_0__event:', request, event_type, sf_id, sf_session_id)
         
         component, callback = self.callbacks[sf_id][event_type]
         await callback(component, {})
@@ -115,7 +115,7 @@ class Gladius:
         event_type: str = request.match_info['event_type']
         sf_id: str = request.match_info['sf_id']
         sf_session_id: str = request.match_info['sf_session_id']
-        print('get_api_1_0__session_event:', request, event_type, sf_id, sf_session_id)
+        # print('get_api_1_0__session_event:', request, event_type, sf_id, sf_session_id)
         
         component, callback = self.callbacks[sf_id][event_type]
         await callback(component, {})
@@ -130,9 +130,9 @@ class Gladius:
         sf_id: str = request.match_info['sf_id']
         sf_session_id: str = request.headers['SF-Session-ID']
         event: Event = request.headers['Triggering-Event']
-        print('post_api_1_0__event:', request, event_type, sf_id, sf_session_id, event)
+        # print('post_api_1_0__event:', request, event_type, sf_id, sf_session_id, event)
 
-        self.update_components[sf_session_id] = []
+        # self.update_components[sf_session_id] = []
         component, callback = self.callbacks[sf_id][event_type]
         res: dict = await callback(component, event)
 
