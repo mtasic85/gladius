@@ -14,7 +14,7 @@ from .gladius import Gladius, Event
 class Component:
     component_library: 'ComponentLibrary'
     attrs: dict
-    content: str | None = None
+    content: str = ''
     children: list['Component']
     tag: str = 'div'
     default_class: str = ''
@@ -27,7 +27,7 @@ class Component:
     # https://developer.mozilla.org/en-US/docs/Glossary/Void_element
     void_element: bool = False
     
-    def __init__(self, component_library: 'ComponentLibrary', content: str | None=None, **kwargs):
+    def __init__(self, component_library: 'ComponentLibrary', content: str='', **kwargs):
         self.component_library = component_library
         
         # attrs
@@ -166,21 +166,12 @@ class Component:
             return f'''
                 <{self.tag} {self.render_attrs()} />
             '''
-        elif self.content:
+        else:
             return f'''
                 <{self.tag} {self.render_attrs()}>
                     {self.content}
-                </{self.tag}>
-            '''
-        elif self.children:
-            return f'''
-                <{self.tag} {self.render_attrs()}>
                     {self.render_children()}
                 </{self.tag}>
-            '''
-        else:
-            return f'''
-                <{self.tag} {self.render_attrs()}></{self.tag}>
             '''
 
 class ComponentLibrary:

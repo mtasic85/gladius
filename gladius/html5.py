@@ -39,6 +39,21 @@ __all__ = [
     'Hr',
     'Button',
     'Main',
+    'HGroup',
+    'Abbr',
+    'B',
+    'I',
+    'Cite',
+    'Del',
+    'Ins',
+    'Kbd',
+    'Mark',
+    'S',
+    'Small',
+    'Sub',
+    'Sup',
+    'U',
+    'Input',
     'Html5',
 ]
 
@@ -70,7 +85,7 @@ class Page(Component):
         # head
         html.add(head := h.Head())
         head.add(meta := h.Meta(charset='utf-8'))
-        head.add(meta := h.Meta(name='viewport', content='width=device-width'))
+        head.add(meta := h.Meta(name='viewport', content_='width=device-width'))
         head.add(title := h.Title(content=self.title))
         head.add(link := h.Link(rel='shortcut icon', type='image/png', href=self.favicon))
         head.add(script := h.Script(src='https://unpkg.com/htmx.org@1.9.6'))
@@ -242,6 +257,52 @@ class Button(Component):
 
 class Main(Component):
     tag: str = 'main'
+
+class HGroup(Component):
+    tag: str = 'hgroup'
+
+class Abbr(Component):
+    tag: str = 'abbr'
+
+class B(Component):
+    tag: str = 'b'
+
+class I(Component):
+    tag: str = 'I'
+
+class Cite(Component):
+    tag: str = 'cite'
+
+class Del(Component):
+    tag: str = 'del'
+
+class Ins(Component):
+    tag: str = 'ins'
+
+class Kbd(Component):
+    tag: str = 'kbd'
+
+class Mark(Component):
+    tag: str = 'mark'
+
+class S(Component):
+    tag: str = 's'
+
+class Small(Component):
+    tag: str = 'small'
+
+class Sub(Component):
+    tag: str = 'sub'
+
+class Sup(Component):
+    tag: str = 'sup'
+
+class U(Component):
+    tag: str = 'u'
+
+class Input(Component):
+    tag: str = 'input'
+    void_element: bool = True
 
 #
 # Html5 Component Library
