@@ -5,7 +5,7 @@ from gladius.html5 import Html5
 from gladius.daisyui import DaisyUI
 
 g = Gladius()
-html5 = Html5(g)
+h = Html5(g)
 d = DaisyUI(g)
 
 # callbacks
@@ -20,24 +20,24 @@ async def world_button_click(button: Component, event: Event):
     world_button.content = f'World {v}'
 
 # html
-html = html5.Html()
+html = h.Html()
 
 # head
-html.add(head := html5.Head())
-head.add(meta := html5.Meta(charset='utf-8'))
-head.add(meta := html5.Meta(name='viewport', content='width=device-width'))
-head.add(title := html5.Title(content='Hello world 1'))
-head.add(link := html5.Link(rel='shortcut icon', type='image/png', href='/static/gladius/favicon.png'))
-head.add(link := html5.Link(href='https://cdn.jsdelivr.net/npm/daisyui@3.8.0/dist/full.css', rel='stylesheet', type='text/css'))
-head.add(script := html5.Script(src='https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio'))
-head.add(script := html5.Script(src='https://unpkg.com/htmx.org@1.9.6'))
-head.add(script := html5.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
-head.add(script := html5.Script(src='https://unpkg.com/htmx.org/dist/ext/json-enc.js'))
-head.add(script := html5.Script(src='https://unpkg.com/htmx.org/dist/ext/event-header.js'))
-head.add(script := html5.Script(src='/static/gladius/multi-path-deps.js'))
+html.add(head := h.Head())
+head.add(meta := h.Meta(charset='utf-8'))
+head.add(meta := h.Meta(name='viewport', content='width=device-width'))
+head.add(title := h.Title(content='Hello world 1'))
+head.add(link := h.Link(rel='shortcut icon', type='image/png', href='/static/gladius/favicon.png'))
+head.add(link := h.Link(href='https://cdn.jsdelivr.net/npm/daisyui@3.8.0/dist/full.css', rel='stylesheet', type='text/css'))
+head.add(script := h.Script(src='https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio'))
+head.add(script := h.Script(src='https://unpkg.com/htmx.org@1.9.6'))
+head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
+head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/json-enc.js'))
+head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/event-header.js'))
+head.add(script := h.Script(src='/static/gladius/multi-path-deps.js'))
 
 # body
-html.add(body := html5.Body(hx_ext='multi-path-deps').add_class('p-10'))
+html.add(body := h.Body(hx_ext='multi-path-deps').add_class('p-10'))
 body.add(vflex := d.VFlex())
 
 # cards

@@ -47,16 +47,25 @@ class Gladius:
 
             response: web.Response
 
-            # try default aiohttp request handler
+            # default aiohttp request handler
+            excs = None
+
             try:
                 response = await handler(request)
                 return response
             except Exception as e:
-                # print('Exception:', e)
-                pass
+                excs = [e]
 
             # gladius handler
-            res: str | dict = await handler(self, req)
+            try:
+                res: str | dict = await handler(self, req)
+            except Exception as e:
+                excs = [e]
+
+            # if both throw error, 
+            if excs:
+                e = ExceptionGroup(f'request {request}, handler {handler} error', excs)
+                raise e
 
             if isinstance(res, str):
                 response = web.Response(text=res, content_type='text/html')

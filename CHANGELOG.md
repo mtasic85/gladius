@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.1.9
+
+Added:
+* Html5: `debug` extension for `htmx`.
+* Html5: Added `Main` component.
+* Pico: Added `Pico` component library.
+* Pico: Added `Page`, `Main`, `Grid` components.
+* Html5: Added `H5`, `H6` components.
+
 ## v0.1.8
 
 Added:
