@@ -11,13 +11,13 @@ d = DaisyUI(g)
 # callbacks
 async def hello_button_click(button: Component, event: Event):
     v: int = randint(0, 100)
-    hello_card.content = f'Hello {v}'
-    hello_button.content = f'Hello {v}'
+    hello_card.data = f'Hello {v}'
+    hello_button.data = f'Hello {v}'
 
 async def world_button_click(button: Component, event: Event):
     v: int = randint(0, 100)
-    world_card.content = f'World {v}'
-    world_button.content = f'World {v}'
+    world_card.data = f'World {v}'
+    world_button.data = f'World {v}'
 
 # html
 html = h.Html()
@@ -26,7 +26,7 @@ html = h.Html()
 html.add(head := h.Head())
 head.add(meta := h.Meta(charset='utf-8'))
 head.add(meta := h.Meta(name='viewport', content='width=device-width'))
-head.add(title := h.Title(content='Hello world 1'))
+head.add(title := h.Title(data='Hello world 1'))
 head.add(link := h.Link(rel='shortcut icon', type='image/png', href='/static/gladius/favicon.png'))
 head.add(link := h.Link(href='https://cdn.jsdelivr.net/npm/daisyui@3.8.0/dist/full.css', rel='stylesheet', type='text/css'))
 head.add(script := h.Script(src='https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio'))

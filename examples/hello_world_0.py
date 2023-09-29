@@ -9,13 +9,13 @@ d = DaisyUI(g)
 # callbacks
 async def hello_button_click(button: Component, event: Event):
     v: int = randint(0, 100)
-    hello_card.content = f'Hello {v}'
-    hello_button.content = f'Hello {v}'
+    hello_card.data = f'Hello {v}'
+    hello_button.data = f'Hello {v}'
 
 async def world_button_click(button: Component, event: Event):
     v: int = randint(0, 100)
-    world_card.content = f'World {v}'
-    world_button.content = f'World {v}'
+    world_card.data = f'World {v}'
+    world_button.data = f'World {v}'
 
 # page
 page = d.Page(title='Hello world 0').add_class('p-10')

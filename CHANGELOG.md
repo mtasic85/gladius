@@ -1,6 +1,24 @@
 # CHANGELOG
 
-TODO: Html5: Special case `Meta` component `content` attribute.
+## TODO:
+
+* Pico/Html5: Input checkbox, indeterminate=true, https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox#indeterminate
+
+## v0.1.11
+
+Added:
+* Html5: Special case `Label` component `for_` attribute.
+* Html5: `Form`, `Label`, `Select`, `Option`, `Fieldset`, `Legend` components.
+* Pico: `Form`, `Label`, `Input`, `Select`, `Option`, `Fieldset`, `Legend`, `Text` components.
+* Html5: `Figure`, `Table`, `THead`, `TR`, `TH`, `TBody`, `TD`, `TFoot` components.
+* Pico: `Figure`, `Table` components.
+* Html5: `Details`, `Summary` component.
+* Html5: `Article` component.
+* Pico: `Details`, `Summary`, `Ul`, `Li` component.
+* Pico: `Article`, `Header`, `Footer` component.
+
+Changed:
+* Html5: Rename `content` prop/attr to be `data`. https://dom.spec.whatwg.org/#text
 
 ## v0.1.10
 

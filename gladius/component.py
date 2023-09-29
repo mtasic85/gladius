@@ -14,7 +14,7 @@ from .gladius import Gladius, Event
 class Component:
     component_library: 'ComponentLibrary'
     attrs: dict
-    content: str = ''
+    data: str = ''
     children: list['Component']
     tag: str = 'div'
     default_class: str = ''
@@ -27,10 +27,10 @@ class Component:
     # https://developer.mozilla.org/en-US/docs/Glossary/Void_element
     void_element: bool = False
     
-    def __init__(self, component_library: 'ComponentLibrary', content: str='', **kwargs):
+    def __init__(self, component_library: 'ComponentLibrary', data: str='', **kwargs):
         self.component_library = component_library
         
-        # attrs
+        # DOM attributes
         attrs = {**kwargs}
 
         if 'class' not in attrs and 'class_' not in attrs:
@@ -40,8 +40,12 @@ class Component:
         self.attrs = {}
         self.set_attr(**attrs)
 
+        # data
+        # https://dom.spec.whatwg.org/#text
+        self.data = data
+
         # children
-        self.content = content
+        # https://dom.spec.whatwg.org/#ref-for-dom-parentnode-children
         self.children = []
 
     def set_attr(self, **kwargs) -> Self:
@@ -49,7 +53,7 @@ class Component:
         attrs = {
             k.replace('_', '-'): v
             for k, v in kwargs.items()
-            if k not in ('class', 'class_', 'id', 'id_')
+            if k not in ('class', 'class_', 'id', 'id_', 'content_', 'for_')
         }
 
         # class
@@ -63,6 +67,10 @@ class Component:
             attrs['id'] = kwargs['id']
         elif 'id_' in kwargs:
             attrs['id'] = kwargs['id_']
+
+        # for
+        if 'for_' in kwargs:
+            attrs['for'] = kwargs['for_']
 
         self.attrs.update(attrs)
         return self
@@ -169,7 +177,7 @@ class Component:
         else:
             return f'''
                 <{self.tag} {self.render_attrs()}>
-                    {self.content}
+                    {self.data}
                     {self.render_children()}
                 </{self.tag}>
             '''

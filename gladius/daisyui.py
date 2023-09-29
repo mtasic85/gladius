@@ -119,8 +119,7 @@ class Table(Component):
             </table>
         '''
 
-class Text(html5.Span):
-    # NOTE: extended component
+class Text(html5.Text):
     pass
 
 #

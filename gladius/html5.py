@@ -54,6 +54,23 @@ __all__ = [
     'Sup',
     'U',
     'Input',
+    'Form',
+    'Label',
+    'Select',
+    'Option',
+    'Fieldset',
+    'Legend',
+    'Text',
+    'Table',
+    'THead',
+    'TR',
+    'TH',
+    'TBody',
+    'TD',
+    'TFoot',
+    'Details',
+    'Summary',
+    'Article',
     'Html5',
 ]
 
@@ -85,8 +102,8 @@ class Page(Component):
         # head
         html.add(head := h.Head())
         head.add(meta := h.Meta(charset='utf-8'))
-        head.add(meta := h.Meta(name='viewport', content_='width=device-width'))
-        head.add(title := h.Title(content=self.title))
+        head.add(meta := h.Meta(name='viewport', content='width=device-width'))
+        head.add(title := h.Title(data=self.title))
         head.add(link := h.Link(rel='shortcut icon', type='image/png', href=self.favicon))
         head.add(script := h.Script(src='https://unpkg.com/htmx.org@1.9.6'))
         head.add(script := h.Script(src='https://unpkg.com/htmx.org/dist/ext/debug.js'))
@@ -303,6 +320,58 @@ class U(Component):
 class Input(Component):
     tag: str = 'input'
     void_element: bool = True
+
+class Form(Component):
+    tag: str = 'form'
+
+class Label(Component):
+    tag: str = 'label'
+
+class Select(Component):
+    tag: str = 'select'
+
+class Option(Component):
+    tag: str = 'option'
+
+class Fieldset(Component):
+    tag: str = 'fieldset'
+
+class Legend(Component):
+    tag: str = 'legend'
+
+class Text(Span):
+    # NOTE: extended component
+    pass
+
+class Table(Component):
+    tag: str = 'table'
+
+class THead(Component):
+    tag: str = 'thead'
+
+class TR(Component):
+    tag: str = 'tr'
+
+class TH(Component):
+    tag: str = 'th'
+
+class TBody(Component):
+    tag: str = 'tbody'
+
+class TD(Component):
+    tag: str = 'td'
+
+class TFoot(Component):
+    tag: str = 'tfoot'
+
+class Details(Component):
+    tag: str = 'details'
+
+class Summary(Component):
+    tag: str = 'summary'
+
+class Article(Component):
+    tag: str = 'article'
 
 #
 # Html5 Component Library

@@ -84,8 +84,8 @@ class SubmitInput(html5.Input):
         super().__init__(component_library, type='submit', **kwargs)
 
 class ButtonLink(html5.A):
-    def __init__(self, component_library: ComponentLibrary, content: str='', **kwargs):
-        super().__init__(component_library, role='button', content=content, **kwargs)
+    def __init__(self, component_library: ComponentLibrary, data: str='', **kwargs):
+        super().__init__(component_library, role='button', data=data, **kwargs)
 
 class SecondaryButtonLink(ButtonLink):
     default_class: str = 'secondary'
@@ -101,6 +101,93 @@ class SecondaryOutlineButtonLink(ButtonLink):
 
 class ContrastOutlineButtonLink(ButtonLink):
     default_class: str = 'contrast outline'
+
+#
+# forms
+#
+class Form(html5.Form): pass
+class Label(html5.Label): pass
+class Input(html5.Input): pass
+class Select(html5.Select): pass
+class Option(html5.Option): pass
+class Fieldset(html5.Fieldset): pass
+class Legend(html5.Legend): pass
+class Text(html5.Text): pass
+
+#
+# tables
+#
+class Figure(html5.Figure): pass
+
+class Table(html5.Table):
+    header: list[str]
+    rows: list[list]
+    footer: list[str]
+
+    def __init__(self, component_library: ComponentLibrary, header: list[str]=[], rows: list[list]=[], footer: list[str]=[], **kwargs):
+        super().__init__(component_library, **kwargs)
+        self.header = header
+        self.rows = rows
+        self.footer = footer
+
+    def render(self) -> str:
+        # render header
+        rendered_header = None
+
+        if self.header:
+            rendered_header = '\n'.join([
+                '<tr>',
+                '\n'.join(f'<th>{h}</th>' for h in self.header),
+                '</tr>',
+            ])
+        
+        # render body
+        rendered_rows = '\n'.join([
+            '\n'.join([
+                '<tr>',
+                '\n'.join(f'<td>{v}</td>' for v in row),
+                '</tr>',
+            ]) for row in self.rows
+        ])
+
+        # render footer
+        rendered_footer = None
+
+        if self.footer:
+            rendered_footer = '\n'.join([
+                '<tr>',
+                '\n'.join(f'<th>{h}</th>' for h in self.footer),
+                '</tr>',
+            ])
+
+        # render table with header, body and footer
+        rendered_component = f'<table class="table" {self.render_attrs()}>'
+
+        if self.header:
+            rendered_component += f'<thead> {rendered_header} </thead>'
+
+        rendered_component += f'<tbody> {rendered_rows} </tbody>'
+
+        if self.footer:
+            rendered_component += f'<tfoot> {rendered_footer} </tfoot>'
+        
+        rendered_component += '</table>'
+        return rendered_component
+
+#
+# accordions
+#
+class Details(html5.Details): pass
+class Summary(html5.Summary): pass
+class Ul(html5.Ul): pass
+class Li(html5.Li): pass
+
+#
+# cards
+#
+class Article(html5.Article): pass
+class Header(html5.Header): pass
+class Footer(html5.Footer): pass
 
 #
 # Pico Component Library
