@@ -4,6 +4,10 @@
 
 * Pico/Html5: Input checkbox, indeterminate=true, https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox#indeterminate
 
+## v0.1.12
+
+...
+
 ## v0.1.11
 
 Added:

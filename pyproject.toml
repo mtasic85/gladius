@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gladius"
-version = "0.1.11"
+version = "0.1.12"
 description = "Full-stack web apps in Python"
 homepage = "https://github.com/mtasic85/gladius"
 repository = "https://github.com/mtasic85/gladius"
