@@ -6,6 +6,7 @@ __all__ = [
     'Link',
     'Title',
     'Script',
+    'Style',
     'Body',
     'Div',
     'Span',
@@ -71,6 +72,12 @@ __all__ = [
     'Details',
     'Summary',
     'Article',
+    'Dialog',
+    'Svg',
+    'Aside',
+    'Progress',
+    'Br',
+    'Hr',
     'Html5',
 ]
 
@@ -155,6 +162,9 @@ class Title(Component):
 
 class Script(Component):
     tag: str = 'script'
+
+class Style(Component):
+    tag: str = 'style'
 
 class Body(Component):
     tag: str = 'body'
@@ -372,6 +382,24 @@ class Summary(Component):
 
 class Article(Component):
     tag: str = 'article'
+
+class Dialog(Component):
+    tag: str = 'dialog'
+
+class Svg(Component):
+    tag: str = 'svg'
+
+class Aside(Component):
+    tag: str = 'aside'
+
+class Progress(Component):
+    tag: str = 'progress'
+
+class Br(Component):
+    tag: str = 'br'
+
+class Hr(Component):
+    tag: str = 'hr'
 
 #
 # Html5 Component Library

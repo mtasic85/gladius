@@ -21,6 +21,112 @@ class Page(html5.Page):
         h: ComponentLibrary = html5.Html5(component_library.ctx)
         self.head.add(link := h.Link(href='https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css', rel='stylesheet', type='text/css'))
 
+        self.head.add(script := h.Script('''
+          /*
+           * Modal
+           *
+           * Pico.css - https://picocss.com
+           * Copyright 2019-2023 - Licensed under MIT
+           */
+
+          // Config
+          const isOpenClass = "modal-is-open";
+          const openingClass = "modal-is-opening";
+          const closingClass = "modal-is-closing";
+          const animationDuration = 400; // ms
+          let visibleModal = null;
+
+          // Toggle modal
+          const toggleModal = (event) => {
+            event.preventDefault();
+            const modal = document.getElementById(event.currentTarget.getAttribute("data-target"));
+            typeof modal != "undefined" && modal != null && isModalOpen(modal)
+              ? closeModal(modal)
+              : openModal(modal);
+          };
+
+          // Is modal open
+          const isModalOpen = (modal) => {
+            return modal.hasAttribute("open") && modal.getAttribute("open") != "false" ? true : false;
+          };
+
+          // Open modal
+          const openModal = (modal) => {
+            if (isScrollbarVisible()) {
+              document.documentElement.style.setProperty("--scrollbar-width", `${getScrollbarWidth()}px`);
+            }
+            document.documentElement.classList.add(isOpenClass, openingClass);
+            setTimeout(() => {
+              visibleModal = modal;
+              document.documentElement.classList.remove(openingClass);
+            }, animationDuration);
+            modal.setAttribute("open", true);
+          };
+
+          // Close modal
+          const closeModal = (modal) => {
+            visibleModal = null;
+            document.documentElement.classList.add(closingClass);
+            setTimeout(() => {
+              document.documentElement.classList.remove(closingClass, isOpenClass);
+              document.documentElement.style.removeProperty("--scrollbar-width");
+              modal.removeAttribute("open");
+            }, animationDuration);
+          };
+
+          // Close with a click outside
+          document.addEventListener("click", (event) => {
+            if (visibleModal != null) {
+              const modalContent = visibleModal.querySelector("article");
+              const isClickInside = modalContent.contains(event.target);
+              !isClickInside && closeModal(visibleModal);
+            }
+          });
+
+          // Close with Esc key
+          document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && visibleModal != null) {
+              closeModal(visibleModal);
+            }
+          });
+
+          // Get scrollbar width
+          const getScrollbarWidth = () => {
+            // Creating invisible container
+            const outer = document.createElement("div");
+            outer.style.visibility = "hidden";
+            outer.style.overflow = "scroll"; // forcing scrollbar to appear
+            outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+            document.body.appendChild(outer);
+
+            // Creating inner element and placing it in the container
+            const inner = document.createElement("div");
+            outer.appendChild(inner);
+
+            // Calculating difference between container's full width and the child width
+            const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+
+            // Removing temporary elements from the DOM
+            outer.parentNode.removeChild(outer);
+
+            return scrollbarWidth;
+          };
+
+          // Is scrollbar visible
+          const isScrollbarVisible = () => {
+            return document.body.scrollHeight > screen.height;
+          };
+        '''))
+
+class Html(html5.Html): pass
+class Head(html5.Head): pass
+class Meta(html5.Meta): pass
+class Link(html5.Link): pass
+class Title(html5.Title): pass
+class Script(html5.Script): pass
+class Style(html5.Style): pass
+class Body(html5.Body): pass
+
 #
 # layout
 #
@@ -30,8 +136,7 @@ class Main(html5.Main):
 class Grid(html5.Div):
     default_class: str = 'grid'
 
-class Div(html5.Div):
-    pass
+class Div(html5.Div): pass
 
 #
 # typography
@@ -188,6 +293,31 @@ class Li(html5.Li): pass
 class Article(html5.Article): pass
 class Header(html5.Header): pass
 class Footer(html5.Footer): pass
+
+#
+# dropdowns
+#
+class A(html5.A): pass
+class Nav(html5.Nav): pass
+
+#
+# modals
+#
+class Dialog(html5.Dialog): pass
+class Svg(html5.Svg): pass
+class Aside(html5.Aside): pass
+
+#
+# progress
+#
+class Progress(html5.Progress): pass
+
+#
+# extra
+#
+class Br(html5.Br): pass
+class Hr(html5.Hr): pass
+
 
 #
 # Pico Component Library

@@ -6,7 +6,15 @@
 
 ## v0.1.12
 
-...
+Added:
+* Html5: `Style`, `Svg`, `Aside` components.
+* Html5: `Progress`, `Br`, `Hr` components.
+* Pico: `A`, `Nav`, `Dialog` components.
+* Pico: `Html`, `Head`, `Meta`, `Link`, `Title`, `Script`, `Style`, `Body`, `Svg`, `Aside` components.
+* Pico: `Progress`, `Br`, `Hr` components.
+* Pico: Renamed `hello_world_pico_0` to `pico_0`.
+* Pico: `hello_world_pico_0` complete example with all components https://picocss.com.
+* README: Updated examples section.
 
 ## v0.1.11
 
