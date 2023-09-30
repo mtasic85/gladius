@@ -1,8 +1,12 @@
 # CHANGELOG
 
 ## TODO:
+* Pico: High-level components.
+* More class-less CSS libraries.
 
-* Pico/Html5: Input checkbox, indeterminate=true, https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox#indeterminate
+## v0.1.13
+
+...
 
 ## v0.1.12
 
@@ -15,6 +19,7 @@ Added:
 * Pico: Renamed `hello_world_pico_0` to `pico_0`.
 * Pico: `hello_world_pico_0` complete example with all components https://picocss.com.
 * README: Updated examples section.
+* Pico/Html5: Input checkbox, indeterminate=true, https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox#indeterminate
 
 ## v0.1.11
 
