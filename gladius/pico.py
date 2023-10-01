@@ -1,8 +1,70 @@
 __all__ = [
     'Page',
+    'Html',
+    'Head',
+    'Meta',
+    'Link',
+    'Title',
+    'Script',
+    'Style',
+    'Body',
     'Main',
     'Grid',
+    'Div',
+    'H1',
+    'H2',
+    'H3',
+    'H4',
+    'H5',
+    'H6',
+    'HGroup',
     'Headings',
+    'P',
+    'Abbr',
+    'Strong',
+    'B',
+    'I',
+    'Em',
+    'Cite',
+    'Del',
+    'Ins',
+    'Kbd',
+    'Mark',
+    'S',
+    'Small',
+    'Sub',
+    'Sup',
+    'U',
+    'Link',
+    'BlockQuote',
+    'Footer',
+    'Button',
+    'Form',
+    'Label',
+    'Input',
+    'Select',
+    'Option',
+    'Fieldset',
+    'Legend',
+    'Text',
+    'Figure',
+    'Table',
+    'Details',
+    'Summary',
+    'Ul',
+    'Li',
+    'Article',
+    'Header',
+    'Footer',
+    'Section',
+    'A',
+    'Nav',
+    'Dialog',
+    'Svg',
+    'Aside',
+    'Progress',
+    'Br',
+    'Hr',
     'Pico',
 ]
 
@@ -19,7 +81,12 @@ class Page(html5.Page):
     def __init__(self, component_library: ComponentLibrary, **kwargs):
         super().__init__(component_library, **kwargs)
         h: ComponentLibrary = html5.Html5(component_library.ctx)
-        self.head.add(link := h.Link(href='https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css', rel='stylesheet', type='text/css'))
+        
+        self.head.add(link := h.Link(
+            href='https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css',
+            rel='stylesheet',
+            type='text/css',
+        ))
 
         self.head.add(script := h.Script('''
           /*
@@ -116,7 +183,13 @@ class Page(html5.Page):
           const isScrollbarVisible = () => {
             return document.body.scrollHeight > screen.height;
           };
-        '''))
+        ''', defer='defer'))
+
+        self.head.add(script := h.Script('''
+          document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('[indeterminate="indeterminate"]').forEach(n => n.indeterminate = true)
+          });
+        ''', defer='defer'))
 
 class Html(html5.Html): pass
 class Head(html5.Head): pass
@@ -168,14 +241,6 @@ class Small(html5.Small): pass
 class Sub(html5.Sub): pass
 class Sup(html5.Sup): pass
 class U(html5.U): pass
-class Link(html5.A): pass
-
-class SecondaryLink(Link):
-    default_class: str = 'secondary'
-
-class ContrastLink(Link):
-    default_class: str = 'contrast'
-
 class BlockQuote(html5.BlockQuote): pass
 class Footer(html5.Footer): pass
 
@@ -183,29 +248,6 @@ class Footer(html5.Footer): pass
 # buttons
 #
 class Button(html5.Button): pass
-
-class SubmitInput(html5.Input):
-    def __init__(self, component_library: ComponentLibrary, **kwargs):
-        super().__init__(component_library, type='submit', **kwargs)
-
-class ButtonLink(html5.A):
-    def __init__(self, component_library: ComponentLibrary, data: str='', **kwargs):
-        super().__init__(component_library, role='button', data=data, **kwargs)
-
-class SecondaryButtonLink(ButtonLink):
-    default_class: str = 'secondary'
-
-class ContrastButtonLink(ButtonLink):
-    default_class: str = 'contrast'
-
-class OutlineButtonLink(ButtonLink):
-    default_class: str = 'outline'
-
-class SecondaryOutlineButtonLink(ButtonLink):
-    default_class: str = 'secondary outline'
-
-class ContrastOutlineButtonLink(ButtonLink):
-    default_class: str = 'contrast outline'
 
 #
 # forms
@@ -229,7 +271,12 @@ class Table(html5.Table):
     rows: list[list]
     footer: list[str]
 
-    def __init__(self, component_library: ComponentLibrary, header: list[str]=[], rows: list[list]=[], footer: list[str]=[], **kwargs):
+    def __init__(self,
+                 component_library: ComponentLibrary,
+                 header: list[str]=[],
+                 rows: list[list]=[],
+                 footer: list[str]=[],
+                 **kwargs):
         super().__init__(component_library, **kwargs)
         self.header = header
         self.rows = rows
@@ -293,6 +340,7 @@ class Li(html5.Li): pass
 class Article(html5.Article): pass
 class Header(html5.Header): pass
 class Footer(html5.Footer): pass
+class Section(html5.Section): pass
 
 #
 # dropdowns
@@ -318,7 +366,6 @@ class Progress(html5.Progress): pass
 class Br(html5.Br): pass
 class Hr(html5.Hr): pass
 
-
 #
 # Pico Component Library
 #
@@ -331,11 +378,3 @@ class Pico(ComponentLibrary):
             for k, v in dict(globals()).items()
             if isinstance(v, type) and issubclass(v, Component)
         }
-
-    def __getattr__(self, attr):
-        ComponentType: type = self.get_component_type(attr)
-
-        def _component(*args, **kwargs) -> Component:
-            return ComponentType(self, *args, **kwargs)
-
-        return _component

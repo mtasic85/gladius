@@ -119,8 +119,7 @@ class Table(Component):
             </table>
         '''
 
-class Text(html5.Text):
-    pass
+class Text(html5.Text): pass
 
 #
 # Layout
@@ -175,11 +174,3 @@ class DaisyUI(ComponentLibrary):
             for k, v in dict(globals()).items()
             if isinstance(v, type) and issubclass(v, Component)
         }
-
-    def __getattr__(self, attr):
-        ComponentType: type = self.get_component_type(attr)
-
-        def _component(*args, **kwargs) -> Component:
-            return ComponentType(self, *args, **kwargs)
-
-        return _component

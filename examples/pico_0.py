@@ -1,22 +1,10 @@
 from random import randint
 
 from gladius import Gladius, Component, Event
-from gladius.html5 import Html5
 from gladius.pico import Pico
 
 g = Gladius()
 p = Pico(g)
-
-# callbacks
-async def hello_button_click(button: Component, event: Event):
-    v: int = randint(0, 100)
-    hello_card.data = f'Hello {v}'
-    hello_button.data = f'Hello {v}'
-
-async def world_button_click(button: Component, event: Event):
-    v: int = randint(0, 100)
-    world_card.data = f'World {v}'
-    world_button.data = f'World {v}'
 
 # Page
 page = p.Page(title='Pico.css - 0')
@@ -53,14 +41,8 @@ page.head.add(style := p.Style('''
   }
 '''))
 
-page.head.add(script := p.Script('''
-  document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('indeterminate-checkbox').indeterminate = true;
-  });
-''', defer='defer'))
-
 # main container
-page.body.add(main := p.Main())
+page.add(main := p.Main())
 main.add(h1 := p.H1('Pico.css'))
 main.add(hr := p.Hr())
 
@@ -76,7 +58,7 @@ main.add(hr := p.Hr())
 
 # Grid
 # main container-fluid enable a 100% layout
-page.body.add(main := p.Main(class_='container-fluid'))
+page.add(main := p.Main(class_='container-fluid'))
 main.add(h2 := p.H2(r'Grid - 100% Layout'))
 
 main.add(grid := p.Grid(id='grid'))
@@ -89,7 +71,7 @@ main.add(hr := p.Hr())
 
 # Grid
 #
-page.body.add(main := p.Main(class_='container'))
+page.add(main := p.Main(class_='container'))
 main.add(h2 := p.H2('Grid'))
 
 main.add(grid := p.Grid(id='grid'))
@@ -159,9 +141,9 @@ main.add(hr := p.Hr())
 main.add(h2 := p.H2('Links'))
 
 main.add(div := p.Div())
-div.add(a := p.Link('Primary', href='#'))
-div.add(a := p.SecondaryLink('Secondary', href='#'))
-div.add(a := p.ContrastLink('Contrast', href='#'))
+div.add(a := p.A('Primary', href='#'))
+div.add(a := p.A('Secondary', href='#', class_='secondary'))
+div.add(a := p.A('Contrast', href='#', class_='contrast'))
 
 main.add(hr := p.Hr())
 
@@ -170,14 +152,13 @@ main.add(h2 := p.H2('Buttons'))
 
 main.add(div := p.Div())
 div.add(b := p.Button('Button'))
-div.add(b := p.SubmitInput())
-div.add(b := p.ButtonLink('Link', href='#'))
-div.add(b := p.ButtonLink('Link', href='#'))
-div.add(b := p.SecondaryButtonLink('Link', href='#'))
-div.add(b := p.ContrastButtonLink('Link', href='#'))
-div.add(b := p.OutlineButtonLink('Link', href='#'))
-div.add(b := p.SecondaryOutlineButtonLink('Link', href='#'))
-div.add(b := p.ContrastOutlineButtonLink('Link', href='#'))
+div.add(b := p.Input('Button', type='submit'))
+div.add(b := p.A('Link', href='#', role='button'))
+div.add(b := p.A('Link', href='#', role='button', class_='secondary'))
+div.add(b := p.A('Link', href='#', role='button', class_='contrast'))
+div.add(b := p.A('Link', href='#', role='button', class_='outline'))
+div.add(b := p.A('Link', href='#', role='button', class_='secondary outline'))
+div.add(b := p.A('Link', href='#', role='button', class_='contrast outline'))
 
 main.add(hr := p.Hr())
 
@@ -268,7 +249,7 @@ label.add(input_ := p.Input(type='checkbox', id='terms_sharing', name='terms_sha
 label.add(text := p.Text('I agree to share my information with partners'))
 
 fieldset.add(label := p.Label(for_='terms_2'))
-label.add(input_ := p.Input(type='checkbox', id='indeterminate-checkbox', name='terms_2')) # indeterminate
+label.add(input_ := p.Input(type='checkbox', id='indeterminate-checkbox', name='terms_2', indeterminate='indeterminate'))
 label.add(text := p.Text('Select all'))
 
 main.add(hr := p.Hr())

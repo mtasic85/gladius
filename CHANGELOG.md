@@ -1,12 +1,33 @@
 # CHANGELOG
 
 ## TODO:
+
 * Pico: High-level components.
-* More class-less CSS libraries.
 
 ## v0.1.13
 
-...
+Added:
+* Component: `ComponentLibrary.__getattr__` method.
+* Pico: `Page.__init__` got Modal JS script.
+* Pico: `Page.__init__` got Checkbox indeterminate JS script.
+* Pico: Module's `__all__` variable.
+* Pico: Example `pico_1.py`, chat UI.
+* Html5: `Section` component.
+* Pico: `Section` component.
+
+Fixed:
+* Html5: Usage of `default_attrs` in `Component.__init__`.
+* Html5: Properly implemented `Text` component.
+* Pico: Removed conflicting `class Link(html5.A): pass`. Only use `p.A`.
+* Html5: Void elements `Hr`, `Br`.
+
+Removed:
+* Pico: `SubmitInput`, `ButtonLink`, `SecondaryButtonLink`, `ContrastButtonLink` components.
+* Pico: `OutlineButtonLink`, `SecondaryOutlineButtonLink`, `ContrastOutlineButtonLink` components.
+* Html5: `Html5.__getattr__` method.
+* DaisyUI: `DaisyUI.__getattr__` method.
+* Pico: `Pico.__getattr__` method.
+* Pico: `SecondaryLink`, `ContrastLink` components
 
 ## v0.1.12
 

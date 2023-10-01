@@ -13,12 +13,12 @@ from .gladius import Gladius, Event
 
 class Component:
     component_library: 'ComponentLibrary'
-    attrs: dict
+    attrs: dict | None = None
     data: str = ''
-    children: list['Component']
-    tag: str = 'div'
-    default_class: str = ''
-    default_attrs: dict[str, str] = {}
+    children: list['Component'] | None = None
+    tag: str | None = 'div'
+    default_class: str | None = ''
+    default_attrs: dict[str, str] | None = None
 
     # A void element is an element in HTML that cannot have any child nodes
     # (i.e., nested elements or text nodes).
@@ -30,20 +30,28 @@ class Component:
     def __init__(self, component_library: 'ComponentLibrary', data: str='', **kwargs):
         self.component_library = component_library
         
-        # DOM attributes
-        attrs = {**kwargs}
-
-        if 'class' not in attrs and 'class_' not in attrs:
-            attrs['class'] = self.default_class
-
-        attrs['g-id'] = str(uuid4())
-        self.attrs = {}
-        self.set_attr(**attrs)
-
         # data
         # https://dom.spec.whatwg.org/#text
         self.data = data
 
+        # DOM attributes
+        attrs = {}
+
+        if self.default_attrs:
+            attrs.update(self.default_attrs)
+
+        if kwargs:
+            attrs.update(kwargs)
+
+        if 'class' not in attrs and 'class_' not in attrs:
+            attrs['class'] = self.default_class
+
+        # https://dom.spec.whatwg.org/#text
+        if self.__class__.__name__ != 'Text':
+            attrs['g-id'] = str(uuid4())
+            self.attrs = {}
+            self.set_attr(**attrs)
+        
         # children
         # https://dom.spec.whatwg.org/#ref-for-dom-parentnode-children
         self.children = []
@@ -189,13 +197,19 @@ class ComponentLibrary:
     def __init__(self, ctx: Gladius):
         self.ctx = ctx
 
-        component_map: dict[str, Component] = {
+        self.component_map: dict[str, Component] = {
             k: v
             for k, v in dict(globals()).items()
             if isinstance(v, type) and issubclass(v, Component)
         }
 
-        self.component_map = component_map
+    def __getattr__(self, attr):
+        ComponentType: type = self.get_component_type(attr)
+
+        def _component(*args, **kwargs) -> Component:
+            return ComponentType(self, *args, **kwargs)
+
+        return _component
 
     def add_component_type(self, component_name: str, component_type: type):
         self.component_map[component_name] = component_type

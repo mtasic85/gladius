@@ -78,6 +78,7 @@ __all__ = [
     'Progress',
     'Br',
     'Hr',
+    'Section',
     'Html5',
 ]
 
@@ -109,7 +110,7 @@ class Page(Component):
         # head
         html.add(head := h.Head())
         head.add(meta := h.Meta(charset='utf-8'))
-        head.add(meta := h.Meta(name='viewport', content='width=device-width'))
+        head.add(meta := h.Meta(name='viewport', content='width=device-width, initial-scale=1.0'))
         head.add(title := h.Title(data=self.title))
         head.add(link := h.Link(rel='shortcut icon', type='image/png', href=self.favicon))
         head.add(script := h.Script(src='https://unpkg.com/htmx.org@1.9.6'))
@@ -349,9 +350,14 @@ class Fieldset(Component):
 class Legend(Component):
     tag: str = 'legend'
 
-class Text(Span):
-    # NOTE: extended component
-    pass
+class Text(Component):
+    tag: str | None = None
+
+    def __init__(self, component_library: 'ComponentLibrary', data: str=''):
+        super().__init__(component_library, data)
+
+    def render(self) -> str:
+        return self.data
 
 class Table(Component):
     tag: str = 'table'
@@ -397,9 +403,14 @@ class Progress(Component):
 
 class Br(Component):
     tag: str = 'br'
+    void_element: bool = True
 
 class Hr(Component):
     tag: str = 'hr'
+    void_element: bool = True
+
+class Section(Component):
+    tag: str = 'section'
 
 #
 # Html5 Component Library
@@ -413,11 +424,3 @@ class Html5(ComponentLibrary):
             for k, v in dict(globals()).items()
             if isinstance(v, type) and issubclass(v, Component)
         }
-
-    def __getattr__(self, attr):
-        ComponentType: type = self.get_component_type(attr)
-
-        def _component(*args, **kwargs) -> Component:
-            return ComponentType(self, *args, **kwargs)
-
-        return _component
