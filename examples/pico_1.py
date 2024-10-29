@@ -10,6 +10,9 @@ p = Pico(g)
 
 # Page
 page = p.Page(title='Pico.css - 1')
+page.head.add(link := p.Link(
+    href='https://unpkg.com/basscss@8.0.2/css/basscss.min.css',
+    rel='stylesheet'))
 
 page.add(main := p.Main(class_='container'))
 main.add(grid := p.Grid(id='grid'))
